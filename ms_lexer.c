@@ -6,53 +6,28 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:26:47 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/07 22:33:49 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/09 23:02:01 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_space(char ch)
+void	quote(t_parsing_ptr *ptr, t_lexing_flag *flag)
 {
-	if ((ch >= 9 && ch <= 13) || ch == 32)
-		return (TRUE);
-	return (FALSE);
-}
-int	is_command()
-{
-
-	return (TRUE);
-}
-
-int	is_pipe()
-{
-
-	return (TRUE);
-}
-
-int	is_redirection()
-{
-
-	return (TRUE);
-}
-
-void	quote(char **ptr, t_lexing_flag *flag)
-{
-	char	*endptr;
-
-	endptr = *ptr;
-	if (*endptr == DOUBLE_QUOTE && flag->s_quote == FALSE)
+	if (*ptr->end == DOUBLE_QUOTE && flag->s_quote == FALSE)
 		change_stat(&flag->d_quote);
-	else if (*endptr == SINGLE_QUOTE && flag->d_quote == FALSE)
+	else if (*ptr->end == SINGLE_QUOTE && flag->d_quote == FALSE)
 		change_stat(&flag->s_quote);
-	while ((flag->s_quote == TRUE || flag->d_quote == TRUE) && *(++endptr))
+	while ((flag->s_quote == TRUE || flag->d_quote == TRUE) \
+	&& ptr->eof == FALSE)
 	{
-		if (*endptr == DOUBLE_QUOTE && flag->s_quote == FALSE)
+		move_end(ptr);
+		if (*ptr->end == DOUBLE_QUOTE && flag->s_quote == FALSE)
 			change_stat(&flag->d_quote);
-		else if (*endptr == SINGLE_QUOTE && flag->d_quote == FALSE)
-			change_stat(&flag->s_quote);	
+		else if (*ptr->end == SINGLE_QUOTE && flag->d_quote == FALSE)
+			change_stat(&flag->s_quote);
 	}
-	*ptr = endptr++;
+	move_end(ptr);
 }
 
 void	change_stat(int *flag)
@@ -63,11 +38,6 @@ void	change_stat(int *flag)
 		*flag == TRUE;
 }
 
-void	add_token()
-{
-
-}
-
 void	init_lexing_flag(t_lexing_flag *flag)
 {
 	flag->cmd = FALSE;
@@ -75,37 +45,45 @@ void	init_lexing_flag(t_lexing_flag *flag)
 	flag->d_quote = FALSE;
 }
 
-t_token	*lexer(char *str)
+void	add_redirection(t_phrase *phrase, t_parsing_ptr *ptr)
 {
+	char	rd;
+
+	rd = *ptr->end;
+	if (ptr->len != 0)
+		add_token_back(phrase, ptr);
+	while (ptr->eof == FALSE && ptr->len < 2 && *ptr->end == rd)
+		move_end(ptr);
+	while (ptr->eof == FALSE && is_space(*ptr->end))
+		move_end(ptr);
+	while (ptr->eof == FALSE && !is_space(*ptr->end) \
+	&& *ptr->end != '|' && *ptr->end != '>' && *ptr->end != '<')
+		move_end(ptr);
+	add_token_front(phrase, ptr);
+}
+
+t_input	*lexer(char *str)
+{
+	t_input			*list;
 	t_lexing_flag	flag;
-	char			*startptr;
-	char			*endptr;
+	t_parsing_ptr	ptr;
 
 	init_lexing_flag(&flag);
-	startptr = str;
-	endptr = str;
-	while (!startptr || !endptr)
+	init_ptr(&ptr, str);
+	list = get_input(&ptr);
+	while (ptr.eof == FALSE)
 	{
-		//set starting point
-		while (is_space(*startptr))
-			startptr++;
-		endptr = startptr;
-		//qoute checker
-		while (endptr && !is_space(*endptr))
-		{
-			if (*endptr == DOUBLE_QUOTE || *endptr == SINGLE_QUOTE)
-				quote(&endptr, &flag);
-			//그외 checker
-			if (!endptr)
-				add_token(&startptr, &endptr, CNT);
-			else if ((*endptr == '<' || *endptr == '>') && is_redirection(&endptr))
-				add_token(&startptr, &endptr, RD);
-			else if (*endptr == '|' && is_pipe(&endptr))
-				add_token(&startptr, &endptr, PIPE);
-			else if (is_command(&endptr))
-				add_token(&startptr, &endptr, CMD);
-			else
-				endptr++;
-		}
+		while (is_space(*ptr.end))
+			move_start(&ptr);
+		if (*ptr.end == SINGLE_QUOTE || *ptr.end == DOUBLE_QUOTE)
+			quote(&ptr, &flag);
+		if (is_space(*ptr.end))
+			add_token_back(list->tail, &ptr);
+		else if ((*ptr.end == '<' || *ptr.end == '>') && is_redirection(&ptr))
+			add_redirection(list->tail, &ptr);
+		else if (*ptr.end == '|' && is_pipe(&ptr))
+			add_phrase(list, &ptr);
+		move_end(&ptr);
 	}
+	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:29:26 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/07 21:47:16 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/09 23:02:22 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,26 @@
 
 typedef struct s_token
 {
-	char	*data;
-	int		type;
+	char			*data;
+	int				type;
+	struct s_token	*next;
 }	t_token;
+
+typedef struct s_phrase
+{
+	t_token			*head;
+	t_token			*tail;
+	int				type;
+	int				cnt;
+	struct s_phrase	*next;
+}	t_phrase;
+
+typedef struct s_input
+{
+	t_phrase	*head;
+	t_phrase	*tail;
+	int			cnt;
+}	t_input;
 
 typedef struct s_lexing_flag
 {
@@ -40,5 +57,24 @@ typedef struct s_lexing_flag
 	int	s_quote;
 	int	d_quote;
 }	t_lexing_flag;
+
+typedef struct s_parsing_ptr
+{
+	char	*start;
+	char	*end;
+	int		len;
+	int		eof;
+}	t_parsing_ptr;
+
+t_input	*lexer(char *str);
+t_token	*get_token(int type);
+t_input	*get_input(t_parsing_ptr *ptr);
+void	add_phrase(t_input *list, t_parsing_ptr *ptr);
+void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
+void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
+void	init_ptr(t_parsing_ptr *ptr, char *str);
+void	move_start(t_parsing_ptr *ptr);
+void	move_end(t_parsing_ptr *ptr);
+void	free_input(t_input *list);
 
 #endif
