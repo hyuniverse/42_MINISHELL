@@ -28,14 +28,23 @@ void print_input(t_input *list)
 	}
 }
 
+void	leaks(void)
+{
+	system("leaks minishell");
+}
 int main(void)
 {
 	t_input		*list;
-	char		*str;
+	char		str[1000];
 
-	str = readline("minishell$ ");
+	atexit(leaks);
+	gets(str);
+	printf("input: %s\n\n", str);
+	getchar();
 	list = lexer(str);
+	printf("Lexing Completed\n\n");
 	print_input(list);
+	printf("print completed\n\n");
 	free_input(list);
 	return (0);	
 }

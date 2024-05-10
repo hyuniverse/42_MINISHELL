@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:29:26 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/09 23:02:22 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:31:54 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 // token type, Binding power
 # define CNT 1
@@ -67,14 +69,17 @@ typedef struct s_parsing_ptr
 }	t_parsing_ptr;
 
 t_input	*lexer(char *str);
-t_token	*get_token(int type);
+t_token	*get_token(int type, t_parsing_ptr *ptr);
 t_input	*get_input(t_parsing_ptr *ptr);
 void	add_phrase(t_input *list, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
 void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
 void	init_ptr(t_parsing_ptr *ptr, char *str);
+void	set_start(t_parsing_ptr *ptr);
 void	move_start(t_parsing_ptr *ptr);
 void	move_end(t_parsing_ptr *ptr);
 void	free_input(t_input *list);
+int		is_space(char ch);
+void	print_phrase(t_phrase *phrase);
 
 #endif

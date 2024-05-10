@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/09 22:45:14 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:54:38 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void	add_phrase(t_input *list, t_parsing_ptr *ptr)
 	if (list->cnt == 0)
 		list->head = phrase;
 	else
+	{
 		list->tail->next = phrase;
+		move_end(ptr);
+		set_start(ptr);
+	}
 	phrase->type = CNT; //지워도 될 수도. 
 	list->tail = phrase;
 	list->cnt++;
-	move_end(ptr);
-	set_start(ptr);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:01:55 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/09 21:48:57 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:28:28 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 char	*my_strldup(t_parsing_ptr *ptr)
 {
 	char	*dup;
-	char	*p;
+	int		i;
 	int		len;
 
 	len = ptr->len;
-	p = ptr->start;
+	i = 0;
 	if (len == 0)
 		return (0);
 	dup = (char *)malloc(len + 1);
 	if (!dup)
 		return (0);
-	while (len--)
-		*dup++ = *p++;
-	*dup = 0;
+	while (i < len)
+	{
+		dup[i] = (ptr->start)[i];
+		i++;
+	}
+	dup[i] = 0;
 	return (dup);
 }
 
@@ -38,7 +41,8 @@ t_token	*get_token(int type, t_parsing_ptr *ptr)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
 		return (0);
-	token->data = mystrldup(ptr);
+	token->data = my_strldup(ptr);
+	printf("token: %s\n", token->data);
 	token->next = 0;
 	token->type = type;
 	//ptr->end++;
@@ -49,7 +53,6 @@ t_token	*get_token(int type, t_parsing_ptr *ptr)
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr)
 {
 	t_token	*token;
-	int		len;
 
 	token = get_token(CNT, ptr);
 	if (!token)

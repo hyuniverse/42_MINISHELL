@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/09 22:05:19 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:30:04 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,15 @@ int	is_space(char ch)
 		return (TRUE);
 	return (FALSE);
 }
-int	is_command()
-{
-
-	return (TRUE);
-}
-
+/*
 int	is_pipe()
 {
 
 	return (TRUE);
 }
 
-int	is_redirection()
+int	is_redirection(char *str)
 {
-
 	return (TRUE);
 }
+*/
