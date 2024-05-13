@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/10 12:34:11 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:46:25 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**envp_list_to_arr(t_envp **my_envp)
 	return (result);
 }
 
-void	change_envp_value(t_envp **my_envp, char *key, char *value)
+void	change_value(t_envp **my_envp, char *key, char *value)
 {
 	int		lst_size;
 	int		i;
@@ -110,7 +110,8 @@ void	change_envp_value(t_envp **my_envp, char *key, char *value)
 	{
 		if (ms_strncmp(n->key, key, ft_strlen(n->key)) == 0)
 		{
-			free(n->value);
+			if (n->value != NULL)
+				free(n->value);
 			n->value = value;
 			break ;
 		}

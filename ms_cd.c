@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/10 12:37:50 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:46:25 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd)
 
 static void	change_envp_pwd(t_envp **my_envp, char *old_pwd)
 {	
-	change_envp_value(my_envp, "OLDPWD", old_pwd);
-	change_envp_value(my_envp, "PWD", getcwd(NULL, 0));
+	change_value(my_envp, "OLDPWD", old_pwd);
+	change_value(my_envp, "PWD", getcwd(NULL, 0));
 }
 
 static int	print_cd_error(char *str, int error_type)

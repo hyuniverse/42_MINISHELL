@@ -6,11 +6,16 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/10 12:37:34 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:23:13 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//void	leaks(void)
+//{
+//	system("leaks minishell");
+//}
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -19,6 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		status;
 	t_envp	*my_envp;
 
+	//atexit(leaks);
 	if (argc != 1 || argv[0] == NULL)
 		exit(1);
 	my_envp = NULL;

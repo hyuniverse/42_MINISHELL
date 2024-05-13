@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/10 12:40:00 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:51:04 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		envp_size(t_envp **my_envp);
 void	envp_add_back(t_envp **my_envp, t_envp *new);
 void	envp_arr_to_list(char **envp, t_envp **n);
 char	**envp_list_to_arr(t_envp **my_envp);
-void	change_envp_value(t_envp **my_envp, char *key, char *value);
+void	change_value(t_envp **my_envp, char *key, char *value);
 
 /*-----minishell.c-----*/
 int		child_process(char *cmd, t_envp **my_envp);
@@ -72,7 +72,7 @@ int		ft_atol(const char *str, long long *num);
 
 /*-----ms_export.c-----*/
 int		ms_export(t_envp **my_envp, char **argv);
-void	add_key_and_value(t_envp **my_envp, char *str, int equal_idx);
+void	add_key_and_value(t_envp **my_envp, char *str, int idx);
 void	print_envp(t_envp **my_envp);
 
 /*-----ms_pwd.c-----*/
