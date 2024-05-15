@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/13 15:51:04 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/15 21:38:51 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,56 @@ typedef struct s_envp
 	char			*value;
 	struct s_envp	*next;
 }	t_envp;
+
+// token type, Binding power
+# define CNT 1
+# define CMD 2
+# define RD 3
+# define HD 4
+# define DOUBLE_QUOTE 34
+# define SINGLE_QUOTE 39
+
+# define TRUE 1
+# define FALSE 0
+
+typedef struct s_token
+{
+	char			*data;
+	int				type;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_phrase
+{
+	t_token			*head;
+	t_token			*tail;
+	int				type;
+	int				cnt;
+	struct s_phrase	*next;
+}	t_phrase;
+
+typedef struct s_input
+{
+	t_phrase	*head;
+	t_phrase	*tail;
+	int			cnt;
+	int			valid;
+}	t_input;
+
+typedef struct s_lexing_flag
+{
+	int	cmd;
+	int	s_quote;
+	int	d_quote;
+}	t_lexing_flag;
+
+typedef struct s_parsing_ptr
+{
+	char	*start;
+	char	*end;
+	int		len;
+	int		eof;
+}	t_parsing_ptr;
 
 /*-----envp.c-----*/
 int		envp_size(t_envp **my_envp);
@@ -83,5 +133,34 @@ int		ms_unset(t_envp **my_envp, char **argv);
 
 /*-----utils.c-----*/
 int		ms_strncmp(const char *s1, const char *s2, size_t n);
+
+/*-----ms_lexer.c-----*/
+t_input	*lexer(char *str);
+
+/*-----ms_methods_token.c-----*/
+t_token	*get_token(int type, t_parsing_ptr *ptr);
+void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
+void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
+
+/*-----ms_methods_phrase.c-----*/
+void	add_phrase(t_input *list, t_parsing_ptr *ptr);
+void	delete_front(t_input *list);
+
+/*-----ms_methods_input.c-----*/
+t_input	*get_input(t_parsing_ptr *ptr);
+void	free_input(t_input *list);
+
+/*-----ms_methods_parsing.c-----*/
+void	init_ptr(t_parsing_ptr *ptr, char *str);
+void	set_start(t_parsing_ptr *ptr);
+void	move_start(t_parsing_ptr *ptr);
+void	move_end(t_parsing_ptr *ptr);
+
+/*-----ms_discriminant.c-----*/
+int		is_space(char ch);
+int		is_pipe(t_input *list, char *str);
+int		is_discriminant(char ch);
+
+//void	print_phrase(t_phrase *phrase);
 
 #endif
