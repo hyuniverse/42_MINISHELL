@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:26:47 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/10 20:47:00 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:56:54 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,59 @@ void	init_lexing_flag(t_lexing_flag *flag)
 	flag->d_quote = FALSE;
 }
 
-void	add_redirection(t_phrase *phrase, t_parsing_ptr *ptr)
+void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 {
-	char	rd;
+	char		rd;
+	int			cnt;
+	t_phrase	*phrase;
 
 	rd = *ptr->end;
+	cnt = 0;
+	phrase = list->tail;
 	if (ptr->len != 0)
-		add_token_back(phrase, ptr);
+		add_token_back(list->tail, ptr);
 	while (ptr->eof == FALSE && ptr->len < 2 && *ptr->end == rd)
 		move_end(ptr);
+	if (rd == '<' && ptr->len == 2)
+		phrase = list->head;
 	while (ptr->eof == FALSE && is_space(*ptr->end))
 		move_end(ptr);
-	while (ptr->eof == FALSE && !is_space(*ptr->end) \
-	&& *ptr->end != '|' && *ptr->end != '>' && *ptr->end != '<')
+	while (ptr->eof == FALSE && !is_discriminant(*ptr->end))
+	{
 		move_end(ptr);
-	add_token_front(phrase, ptr);
+		cnt++;
+	}
+	if (cnt > 0)
+		add_token_front(phrase, ptr);
+	else
+		list->valid = FALSE;
 }
 
+t_input	*init(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr)
+{
+	t_input	*list;
+
+	init_lexing_flag(flag);
+	init_ptr(ptr, str);
+	list = get_input(ptr);
+	return (list);
+}
+
+t_input	*final_process(t_input *list)
+{
+	if (list->valid == FALSE)
+	{
+		free_input(list);
+		perror("!!!!!syntax error near unexpected token");
+		list = 0;
+	}
+	else if (list->head->cnt == 0) // 사용 안한  heredoc phrase 삭제
+		delete_front(list);
+	printf("final process completed");
+	return (list);
+}
+
+/*
 t_input	*lexer(char *str)
 {
 	t_input			*list;
@@ -73,7 +109,7 @@ t_input	*lexer(char *str)
 	init_lexing_flag(&flag);
 	init_ptr(&ptr, str);
 	list = get_input(&ptr);
-	while (TRUE)
+	while (list->valid == TRUE)
 	{
 		if (ptr.eof == TRUE)
 		{
@@ -97,7 +133,7 @@ t_input	*lexer(char *str)
 		if ((*ptr.end == '<' || *ptr.end == '>'))//&& is_redirection(&ptr)
 		{
 			printf("is redirection > ");
-			add_redirection(list->tail, &ptr);
+			add_redirection(list, &ptr);
 		}
 		else if (*ptr.end == '|')// && is_pipe(&ptr)
 		{
@@ -107,5 +143,33 @@ t_input	*lexer(char *str)
 		else
 			move_end(&ptr);
 	}
-	return (list);
+	printf("out!\n");
+	return (final_process(list));
+}
+*/
+t_input	*lexer(char *str)
+{
+	t_input			*list;
+	t_lexing_flag	flag;
+	t_parsing_ptr	ptr;
+
+	list = init(str, &flag, &ptr);
+	while (list->valid == TRUE)
+	{
+		if ((ptr.eof == TRUE || is_space(*ptr.end) == TRUE) && ptr.len != 0)
+			add_token_back(list->tail, &ptr);
+		if (ptr.eof == TRUE)
+			break ;
+		while (is_space(*ptr.end) == TRUE)
+			move_start(&ptr);
+		if (*ptr.end == SINGLE_QUOTE || *ptr.end == DOUBLE_QUOTE)
+			quote(&ptr, &flag);
+		if ((*ptr.end == '<' || *ptr.end == '>'))
+			add_redirection(list, &ptr);
+		else if (*ptr.end == '|' && is_pipe(list, ptr.end + 1))
+			add_phrase(list, &ptr);
+		else
+			move_end(&ptr);
+	}
+	return (final_process(list));
 }

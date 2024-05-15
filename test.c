@@ -43,8 +43,10 @@ int main(void)
 	getchar();
 	list = lexer(str);
 	printf("Lexing Completed\n\n");
-	print_input(list);
-	printf("print completed\n\n");
-	free_input(list);
+	if (list)
+	{
+		print_input(list);
+		free_input(list);
+	}
 	return (0);	
 }

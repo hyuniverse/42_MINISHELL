@@ -1,5 +1,5 @@
 CC		=	cc
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g
 NAME = minishell
 SRCS = ms_lexer.c ms_methods_input.c ms_methods_parsing.c ms_methods_phrase.c\
 	   ms_methods_token.c ms_discriminant.c test.c

@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:29:26 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/10 18:31:54 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:56:37 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 // token type, Binding power
 # define CNT 1
 # define CMD 2
-# define PIPE 3
-# define RD 4
+# define RD 3
+# define HD 4
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
 
@@ -51,6 +51,7 @@ typedef struct s_input
 	t_phrase	*head;
 	t_phrase	*tail;
 	int			cnt;
+	int			valid;
 }	t_input;
 
 typedef struct s_lexing_flag
@@ -71,6 +72,7 @@ typedef struct s_parsing_ptr
 t_input	*lexer(char *str);
 t_token	*get_token(int type, t_parsing_ptr *ptr);
 t_input	*get_input(t_parsing_ptr *ptr);
+void	delete_front(t_input *list);
 void	add_phrase(t_input *list, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
 void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
@@ -80,6 +82,8 @@ void	move_start(t_parsing_ptr *ptr);
 void	move_end(t_parsing_ptr *ptr);
 void	free_input(t_input *list);
 int		is_space(char ch);
+int		is_pipe(t_input *list, char *str);
+int		is_discriminant(char ch);
 void	print_phrase(t_phrase *phrase);
 
 #endif
