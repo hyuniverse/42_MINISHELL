@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lexer.c                                         :+:      :+:    :+:   */
+/*   parse_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:26:47 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/15 20:56:54 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:25:07 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 		cnt++;
 	}
 	if (cnt > 0)
-		add_token_front(phrase, ptr);
+		add_token_rd(phrase, ptr);
 	else
 		list->valid = FALSE;
 }

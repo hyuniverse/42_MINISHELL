@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_methods_token.c                                 :+:      :+:    :+:   */
+/*   parse_struct_token.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:01:55 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/10 18:28:28 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:34:22 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,27 @@ void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr)
 	phrase->cnt++;
 }
 
-void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr)
+void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr)
 {
 	t_token	*token;
 
 	token = get_token(RD, ptr);
 	if (!token)
 		return ;
-	if (!phrase->head)
-		phrase->tail = token;
+	if (!phrase->rd)
+	{
+		if (!phrase->head)
+			phrase->tail = token;
+		else
+			token->next = phrase->head;
+		phrase->head = token;
+		phrase->rd = token;
+	}
 	else
-		token->next = phrase->head;
-	phrase->head = token;
+	{
+		token->next = phrase->rd->next;
+		phrase->rd->next = token;
+		phrase->rd = token;
+	}
 	phrase->cnt++;
 }
