@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/15 21:38:51 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:27:04 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_phrase
 {
 	t_token			*head;
 	t_token			*tail;
+	t_token			*rd;
 	int				type;
 	int				cnt;
 	struct s_phrase	*next;
@@ -134,33 +135,33 @@ int		ms_unset(t_envp **my_envp, char **argv);
 /*-----utils.c-----*/
 int		ms_strncmp(const char *s1, const char *s2, size_t n);
 
-/*-----ms_lexer.c-----*/
+/*-----parse_lexer.c-----*/
 t_input	*lexer(char *str);
 
-/*-----ms_methods_token.c-----*/
+/*-----parse_struct_token.c-----*/
 t_token	*get_token(int type, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
-void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
+void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr);
 
-/*-----ms_methods_phrase.c-----*/
+/*-----parse_struct_phrase.c-----*/
 void	add_phrase(t_input *list, t_parsing_ptr *ptr);
 void	delete_front(t_input *list);
 
-/*-----ms_methods_input.c-----*/
+/*-----parse_struct_input.c-----*/
 t_input	*get_input(t_parsing_ptr *ptr);
 void	free_input(t_input *list);
 
-/*-----ms_methods_parsing.c-----*/
+/*-----parse_pointer.c-----*/
 void	init_ptr(t_parsing_ptr *ptr, char *str);
 void	set_start(t_parsing_ptr *ptr);
 void	move_start(t_parsing_ptr *ptr);
 void	move_end(t_parsing_ptr *ptr);
 
-/*-----ms_discriminant.c-----*/
+/*-----parse_discriminant.c-----*/
 int		is_space(char ch);
 int		is_pipe(t_input *list, char *str);
 int		is_discriminant(char ch);
 
-//void	print_phrase(t_phrase *phrase);
+void	print_phrase(t_phrase *phrase);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_methods_phrase.c                                :+:      :+:    :+:   */
+/*   parse_struct_phrase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/15 21:22:34 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:22:12 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_phrase	*get_phrase(void)
 		return (0);
 	phrase->head = 0;
 	phrase->tail = 0;
+	phrase->rd = 0;
 	phrase->next = 0;
 	phrase->type = 0;
 	phrase->cnt = 0;
