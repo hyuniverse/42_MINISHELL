@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_methods_parsing.c                               :+:      :+:    :+:   */
+/*   parse_pointer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:51:01 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/15 20:17:43 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:29:40 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	move_start(t_parsing_ptr *ptr)
 		printf("####move start(' %c(%d) ')####\n", *ptr->start, *ptr->start);
 }
 
-void	move_end(t_parsing_ptr *ptr)
+int	move_end(t_parsing_ptr *ptr)
 {
 	ptr->end++;
 	ptr->len++;
@@ -52,4 +52,5 @@ void	move_end(t_parsing_ptr *ptr)
 		ptr->eof = TRUE;
 	else
 		printf("####move end(' %c ')####\n", *ptr->end);
+	return (1);
 }
