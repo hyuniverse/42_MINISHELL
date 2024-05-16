@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 18:56:34 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:23:52 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_phrase
 {
 	t_token			*head;
 	t_token			*tail;
+	t_token			*rd;
 	int				type;
 	int				cnt;
 	struct s_phrase	*next;
@@ -80,13 +81,30 @@ typedef struct s_lexing_flag
 	int	s_quote;
 	int	d_quote;
 }	t_lexing_flag;
+/*
+typedef struct s_sub
+{
+	char			*start;
+	char			*end;
+	t_envp			*env;
+	struct s_sub	*next;
+}	t_sub;
+
+typedef struct s_sub_list
+{
+	t_sub	*head;
+	t_sub	*tail;
+	int		len;
+}	t_sub_list;
+*/
 
 typedef struct s_parsing_ptr
 {
-	char	*start;
-	char	*end;
-	int		len;
-	int		eof;
+	char		*start;
+	char		*end;
+	int			len;
+	int			eof;
+//	t_sub_list	*sub;
 }	t_parsing_ptr;
 
 /*-----envp.c-----*/
@@ -163,7 +181,7 @@ t_input	*lexer(char *str);
 /*-----parse_struct_token.c-----*/
 t_token	*get_token(int type, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
-void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
+void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr);
 
 /*-----parse_struct_phrase.c-----*/
 void	add_phrase(t_input *list, t_parsing_ptr *ptr);
