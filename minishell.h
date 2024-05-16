@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 17:01:08 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/16 18:15:10 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,8 @@ int		ms_unset(t_envp **my_envp, char **argv);
 /*-----utils.c-----*/
 int		ms_strncmp(const char *s1, const char *s2, size_t n);
 
-/*-----ms_lexer.c-----*/
+/*-----parse_lexer.c-----*/
+void	change_stat(int *flag);
 t_input	*lexer(char *str);
 
 /*-----ms_methods_token.c-----*/
@@ -174,12 +175,18 @@ void	free_input(t_input *list);
 void	init_ptr(t_parsing_ptr *ptr, char *str);
 void	set_start(t_parsing_ptr *ptr);
 void	move_start(t_parsing_ptr *ptr);
-void	move_end(t_parsing_ptr *ptr);
+int		move_end(t_parsing_ptr *ptr);
 
 /*-----ms_discriminant.c-----*/
 int		is_space(char ch);
 int		is_pipe(t_input *list, char *str);
 int		is_discriminant(char ch);
+void	add_quote(t_parsing_ptr *ptr, t_lexing_flag *flag);
+void	add_redirection(t_input *list, t_parsing_ptr *ptr);
+
+/*-----parse_essentials.c-----*/
+t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr);
+t_input	*final_process(t_input *list);
 
 //void	print_phrase(t_phrase *phrase);
 
