@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:51:01 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/16 16:29:40 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:21:51 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_ptr(t_parsing_ptr *ptr, char *str)
 	ptr->end = str;
 	printf("start> %s\n", ptr->start);
 	ptr->len = 0;
+	//ptr->sub = 0;
 	if (str && *str)
 		ptr->eof = FALSE;
 	else
