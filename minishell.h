@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
 /*   Updated: 2024/05/16 18:15:10 by sehyupar         ###   ########.fr       */
@@ -31,6 +31,12 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
+typedef struct s_fd
+{
+	int	fd[2];
+	int	temp_fd;
+}	t_fd;
+
 // token type, Binding power
 # define CNT 1
 # define CMD 2
@@ -53,7 +59,6 @@ typedef struct s_phrase
 {
 	t_token			*head;
 	t_token			*tail;
-	t_token			*rd;
 	int				type;
 	int				cnt;
 	struct s_phrase	*next;
@@ -90,9 +95,16 @@ char	**envp_list_to_arr(t_envp **my_envp);
 void	change_value(t_envp **my_envp, char *key, char *value);
 
 /*-----minishell.c-----*/
-int		child_process(char *cmd, t_envp **my_envp);
-int		child_process_exe(char *cmd, char **envp);
-int		check_builtin_cmd(t_envp **my_envp, char *cmd);
+void	exec_minishell(t_envp **my_envp);
+int		exe_one_command(t_envp **my_envp, t_phrase *phrase);
+int		wait_and_return(t_input *list, int last_code);
+char	**token_to_arr(t_phrase *phrase);
+int		exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase);
+
+/*-----ms_builtin_cmd.c-----*/
+int		is_builtin_cmd(t_phrase *phrase);
+int		check_builtin_cmd(t_envp **my_envp, t_phrase *phrase);
+int		exe_only_builtin_cmd(t_envp **my_envp, t_phrase *phrase);
 
 /*-----ms_cd.c-----*/
 int		ms_cd(t_envp **my_envp, char **argv);
@@ -126,6 +138,13 @@ int		ms_export(t_envp **my_envp, char **argv);
 void	add_key_and_value(t_envp **my_envp, char *str, int idx);
 void	print_envp(t_envp **my_envp);
 
+/*-----ms_builtin_cmd.c-----*/
+int		set_process(t_envp **my_envp, t_input *list);
+void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
+void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
+int		last_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
+int		child_process_exe(t_phrase *phrase, char **envp);
+
 /*-----ms_pwd.c-----*/
 int		ms_pwd(char **argv);
 
@@ -139,26 +158,26 @@ int		ms_strncmp(const char *s1, const char *s2, size_t n);
 void	change_stat(int *flag);
 t_input	*lexer(char *str);
 
-/*-----parse_struct_token.c-----*/
+/*-----ms_methods_token.c-----*/
 t_token	*get_token(int type, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
-void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr);
+void	add_token_front(t_phrase *phrase, t_parsing_ptr *ptr);
 
-/*-----parse_struct_phrase.c-----*/
+/*-----ms_methods_phrase.c-----*/
 void	add_phrase(t_input *list, t_parsing_ptr *ptr);
 void	delete_front(t_input *list);
 
-/*-----parse_struct_input.c-----*/
+/*-----ms_methods_input.c-----*/
 t_input	*get_input(t_parsing_ptr *ptr);
 void	free_input(t_input *list);
 
-/*-----parse_pointer.c-----*/
+/*-----ms_methods_parsing.c-----*/
 void	init_ptr(t_parsing_ptr *ptr, char *str);
 void	set_start(t_parsing_ptr *ptr);
 void	move_start(t_parsing_ptr *ptr);
 int		move_end(t_parsing_ptr *ptr);
 
-/*-----parse_discriminant.c-----*/
+/*-----ms_discriminant.c-----*/
 int		is_space(char ch);
 int		is_pipe(t_input *list, char *str);
 int		is_discriminant(char ch);
@@ -169,6 +188,6 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr);
 t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr);
 t_input	*final_process(t_input *list);
 
-void	print_phrase(t_phrase *phrase);
+//void	print_phrase(t_phrase *phrase);
 
 #endif
