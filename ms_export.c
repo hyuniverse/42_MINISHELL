@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:34:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/13 15:51:45 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/16 19:01:09 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	add_key_and_value(t_envp **my_envp, char *str, int idx)
 		new->key = ft_substr(str, 0, idx);
 		new->value = ft_substr(str, idx + 1, ft_strlen(str) - idx - 1);
 	}
+	new->key_len = ft_strlen(new->key);
+	new->value_len = ft_strlen(new->value);
 	new->next = NULL;
 	envp_add_back(my_envp, new);
 }
