@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/13 15:46:25 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/16 19:02:23 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	change_value(t_envp **my_envp, char *key, char *value)
 			if (n->value != NULL)
 				free(n->value);
 			n->value = value;
+			n->value_len = ft_strlen(n->value);
 			break ;
 		}
 		i++;
