@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:44:50 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/16 15:49:53 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:21:12 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_input	*final_process(t_input *list)
 	}
 	else if (list->head->cnt == 0) // 사용 안한  heredoc phrase 삭제
 		delete_front(list);
-	printf("final process completed");
+	//printf("final process completed");
 	return (list);
 }
