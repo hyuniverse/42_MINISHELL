@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_methods_input.c                                 :+:      :+:    :+:   */
+/*   parse_struct_input.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:28 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/15 21:23:50 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:20:44 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_input	*get_input(t_parsing_ptr *ptr)
 
 void	free_token(t_token *token)
 {
-	printf("free: %s\n", token->data);
+	//printf("free: %s\n", token->data);
 	if (token->next)
 		free_token(token->next);
 	free(token->data);
@@ -37,7 +37,7 @@ void	free_token(t_token *token)
 
 void	free_phrase(t_phrase *phrase)
 {
-	printf("free phrase\n");
+	//printf("free phrase\n");
 	if (phrase->head)
 		free_token(phrase->head);
 	if (phrase->next)
@@ -47,7 +47,7 @@ void	free_phrase(t_phrase *phrase)
 
 void	free_input(t_input *list)
 {
-	printf("free input\n");
+	//printf("free input\n");
 	if (list->head)
 		free_phrase(list->head);
 	free(list);
