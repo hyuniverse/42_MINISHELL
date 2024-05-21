@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/21 15:42:52 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:39:25 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	is_pipe(t_input *list, char *str)
 	int			cnt;
 
 	cnt = 0;
+
 	while (*str && is_space(*str))
 		str++;
 	if (*str && *str == '|')
