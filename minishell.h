@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 20:23:52 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:50:08 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef struct s_fd
 	int	temp_fd;
 }	t_fd;
 
-// token type, Binding power
 # define CNT 1
-# define CMD 2
-# define RD 3
-# define HD 4
+# define IN 2 // < input rd
+# define HD 3 // << heredoc
+# define OUT 4 // > output rd
+# define APD 5 // >> append rd
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
 
@@ -62,7 +62,6 @@ typedef struct s_phrase
 	t_token			*head;
 	t_token			*tail;
 	t_token			*rd;
-	int				type;
 	int				cnt;
 	struct s_phrase	*next;
 }	t_phrase;
@@ -81,22 +80,6 @@ typedef struct s_lexing_flag
 	int	s_quote;
 	int	d_quote;
 }	t_lexing_flag;
-/*
-typedef struct s_sub
-{
-	char			*start;
-	char			*end;
-	t_envp			*env;
-	struct s_sub	*next;
-}	t_sub;
-
-typedef struct s_sub_list
-{
-	t_sub	*head;
-	t_sub	*tail;
-	int		len;
-}	t_sub_list;
-*/
 
 typedef struct s_parsing_ptr
 {
@@ -104,7 +87,6 @@ typedef struct s_parsing_ptr
 	char		*end;
 	int			len;
 	int			eof;
-//	t_sub_list	*sub;
 }	t_parsing_ptr;
 
 /*-----envp.c-----*/
@@ -181,7 +163,7 @@ t_input	*lexer(char *str);
 /*-----parse_struct_token.c-----*/
 t_token	*get_token(int type, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
-void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr);
+void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr, int type);
 
 /*-----parse_struct_phrase.c-----*/
 void	add_phrase(t_input *list, t_parsing_ptr *ptr);
@@ -207,7 +189,5 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr);
 /*-----parse_essentials.c-----*/
 t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr);
 t_input	*final_process(t_input *list);
-
-//void	print_phrase(t_phrase *phrase);
 
 #endif
