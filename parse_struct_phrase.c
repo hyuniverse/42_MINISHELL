@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/16 15:22:12 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:48:02 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_phrase	*get_phrase(void)
 	phrase->tail = 0;
 	phrase->rd = 0;
 	phrase->next = 0;
-	phrase->type = 0;
 	phrase->cnt = 0;
 	return (phrase);
 }
@@ -36,15 +35,9 @@ void	add_phrase(t_input *list, t_parsing_ptr *ptr)
 		add_token_back(list->tail, ptr);
 	phrase = get_phrase();
 	if (list->cnt == 0)
-	{
 		list->head = phrase;
-		phrase->type = HD;
-	}
 	else
-	{
 		list->tail->next = phrase;
-		phrase->type = CNT;
-	}
 	list->tail = phrase;
 	list->cnt++;
 	if (list->cnt > 2)
@@ -54,6 +47,7 @@ void	add_phrase(t_input *list, t_parsing_ptr *ptr)
 	}
 }
 
+/*
 void	delete_front(t_input *list)
 {
 	t_phrase	*phrase;
@@ -65,3 +59,4 @@ void	delete_front(t_input *list)
 	list->cnt--;
 	free(phrase);
 }
+*/

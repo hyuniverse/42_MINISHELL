@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:28 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/17 16:20:44 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:46:56 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_input	*get_input(t_parsing_ptr *ptr)
 		return (0);
 	list->valid = TRUE;
 	list->cnt = 0;
-	add_phrase(list, ptr);
 	add_phrase(list, ptr);
 	return (list);
 }

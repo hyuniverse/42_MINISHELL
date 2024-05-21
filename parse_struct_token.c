@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:01:55 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/17 16:23:22 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:43:03 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr)
 	phrase->cnt++;
 }
 
-void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr)
+void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr, int type)
 {
 	t_token	*token;
 
-	token = get_token(RD, ptr);
+	token = get_token(type, ptr);
 	if (!token)
 		return ;
 	if (!phrase->rd)
