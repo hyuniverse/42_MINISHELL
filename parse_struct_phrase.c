@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/21 15:48:02 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:40:38 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	add_phrase(t_input *list, t_parsing_ptr *ptr)
 		list->tail->next = phrase;
 	list->tail = phrase;
 	list->cnt++;
-	if (list->cnt > 2)
+	if (list->cnt > 1)
 	{
 		move_end(ptr);
 		set_start(ptr);
