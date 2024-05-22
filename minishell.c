@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 17:08:52 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/20 14:49:01 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	exec_minishell(t_envp **my_envp)
 		{
 			list = lexer(buffer);
 			add_history(buffer);
+			check_heredoc(list->head);
 			if (list->cnt == 1)
 				process_code = exe_one_command(my_envp, list->head);
 			else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 20:23:52 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:36:58 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+# include <fcntl.h>
+# include <errno.h>
 # include "./Libft/get_next_line_bonus.h"
 # include "./Libft/libft.h"
 
@@ -157,6 +159,10 @@ int		ft_atol(const char *str, long long *num);
 int		ms_export(t_envp **my_envp, char **argv);
 void	add_key_and_value(t_envp **my_envp, char *str, int idx);
 void	print_envp(t_envp **my_envp);
+
+/*-----ms_heredoc.c-----*/
+int		make_hd_file(t_token *token);
+void	check_heredoc(t_phrase *phrase);
 
 /*-----ms_builtin_cmd.c-----*/
 int		set_process(t_envp **my_envp, t_input *list);
