@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/21 16:40:44 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:57:19 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+# include <signal.h>
+# include <termios.h>
 # include "./Libft/get_next_line_bonus.h"
 # include "./Libft/libft.h"
 
@@ -189,5 +191,10 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr);
 /*-----parse_essentials.c-----*/
 t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr);
 t_input	*final_process(t_input *list);
+
+
+void	set_interactive_signal(void);
+void	set_wait_signal(void);
+void	set_child_signal(void);
 
 #endif

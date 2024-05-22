@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 17:08:52 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:12:31 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,17 @@ void	exec_minishell(t_envp **my_envp)
 	int		process_code;
 	t_input	*list;
 
+	set_interactive_signal();
 	while (1)
 	{
 		buffer = readline("minishell$ ");
 		if (buffer == NULL)
+		{
+			printf("\033[1A");
+			printf("\033[11C");
+			printf("exit\n");
 			exit(1);
+		}
 		else if (ft_strlen(buffer) != 0)
 		{
 			list = lexer(buffer);
@@ -110,11 +116,14 @@ int	exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_child_signal();
 		envp = envp_list_to_arr(my_envp);
 		return (child_process_exe(phrase, envp));
 	}
 	else if (pid == -1)
 		exit(1);
+	set_wait_signal();
 	wait(&status);
+	set_interactive_signal();
 	return (0);
 }
