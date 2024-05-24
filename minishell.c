@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/24 15:55:19 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:28:35 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ int	main(int argc, char *argv[], char *envp[])
 
 void	exec_minishell(t_envp **my_envp)
 {
-	char	*buffer;
-	int		process_code;
-	t_input	*list;
+	char			*buffer;
+	int				process_code;
+	t_input			*list;
+	struct termios	old_term;
 
+	tcgetattr(STDIN_FILENO, &old_term);
 	set_interactive_signal();
 	while (1)
 	{
@@ -45,6 +47,7 @@ void	exec_minishell(t_envp **my_envp)
 			printf("\033[1A");
 			printf("\033[11C");
 			printf("exit\n");
+			tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
 			exit(1);
 		}
 		else if (ft_strlen(buffer) != 0)
@@ -75,14 +78,22 @@ int	wait_and_return(t_input *list, int last_code)
 	int	status;
 	int	code;
 	int	cnt;
+	int	flag;
 
 	cnt = 0;
+	flag = 0;
 	while (cnt < list->cnt)
 	{
 		if (wait(&status) == last_code)
 			code = WEXITSTATUS(status);
+		if (WIFSIGNALED(status) && flag == 0)
+		{
+			print_signal_exit_status(WTERMSIG(status));
+			flag++;
+		}
 		cnt++;
 	}
+	set_interactive_signal();
 	return (code);
 }
 
@@ -124,10 +135,8 @@ int	exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase)
 		exit(1);
 	set_wait_signal();
 	wait(&status);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == 2)
-		printf("\n");
-	else if (WIFSIGNALED(status) && WTERMSIG(status) == 3)
-		printf("Quit: 3\n");
+	if (WIFSIGNALED(status))
+		print_signal_exit_status(WTERMSIG(status));
 	set_interactive_signal();
 	return (0);
 }
