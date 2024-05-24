@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/21 18:57:19 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:33:13 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,5 +196,6 @@ t_input	*final_process(t_input *list);
 void	set_interactive_signal(void);
 void	set_wait_signal(void);
 void	set_child_signal(void);
+void	print_signal_exit_status(int signo);
 
 #endif
