@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:44:32 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/21 20:00:18 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:34:10 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,13 @@ void	set_child_signal(void)
 	display_ctrl();
 	set_signal(SIGINT, SIG_DFL);
 	set_signal(SIGQUIT, SIG_DFL);
+}
+
+void	print_signal_exit_status(int signo)
+{
+	if (signo == 2)
+		printf("\n");
+	else if (signo == 3)
+		printf("Quit: 3\n");
+	return ;
 }
