@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/21 20:12:31 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:55:19 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	wait_and_return(t_input *list, int last_code)
 	return (code);
 }
 
-char	**token_to_arr(t_phrase *phrase)
+char	**token_to_arr(t_phrase *phrase) 
 {
 	char	**result;
 	int		i;
@@ -124,6 +124,10 @@ int	exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase)
 		exit(1);
 	set_wait_signal();
 	wait(&status);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == 2)
+		printf("\n");
+	else if (WIFSIGNALED(status) && WTERMSIG(status) == 3)
+		printf("Quit: 3\n");
 	set_interactive_signal();
 	return (0);
 }
