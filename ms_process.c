@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/16 17:07:38 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:26:26 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_child_signal();
 		dup2(p.fd[1], 1);
 		close(p.fd[1]);
 		close(p.fd[0]);
@@ -58,7 +59,10 @@ void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	else if (pid == -1)
 		exit(1);
 	else
+	{
+		set_wait_signal();
 		return ;
+	}
 }
 
 void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
@@ -69,6 +73,7 @@ void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_child_signal();
 		dup2(p.temp_fd, 0);
 		dup2(p.fd[1], 1);
 		close(p.fd[0]);
@@ -79,6 +84,7 @@ void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	}
 	else if (pid == -1)
 		exit(1);
+	//set_wait_signal();
 }
 
 int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
@@ -89,6 +95,7 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_child_signal();
 		dup2(p.temp_fd, 0);
 		close(p.temp_fd);
 		envp = envp_list_to_arr(my_envp);
@@ -97,7 +104,10 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	else if (pid == -1)
 		exit(1);
 	else
+	{
+		//set_wait_signal();
 		return (pid);
+	}
 }
 
 int	child_process_exe(t_phrase *phrase, char **envp)
