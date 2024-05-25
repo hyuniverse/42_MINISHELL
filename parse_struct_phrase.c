@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_struct_phrase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/21 16:40:38 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/25 09:42:30 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_phrase	*get_phrase(void)
 	phrase->head = 0;
 	phrase->tail = 0;
 	phrase->rd = 0;
+	phrase->infile_name = NULL;
+	phrase->outfile_name = NULL;
 	phrase->next = 0;
 	phrase->cnt = 0;
 	return (phrase);

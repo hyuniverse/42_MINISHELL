@@ -3,23 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+         #
+#    By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:23:47 by siychoi           #+#    #+#              #
-#    Updated: 2024/05/21 18:29:20 by sehyupar         ###   ########.fr        #
+#    Updated: 2024/05/25 14:30:05 by siychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror 
+CFLAGS		= -Wall -Wextra -Werror
 #-fsanitize=address -g
 RM			= rm
 RMFLAG		= -f
 AR			= ar
 ARFLAGS		= crs
 SRC			= minishell command_split command_parsing envp error ms_builtin_cmd \
-			  ms_cd ms_echo ms_env ms_exit ms_export ms_process ms_pwd ms_unset \
+			  ms_cd ms_echo ms_env ms_exit ms_export ms_process ms_pwd ms_redirection ms_unset \
 			  utils parse_discriminant parse_lexer parse_pointer \
 			  parse_struct_input parse_struct_phrase parse_struct_token \
 			  parse_essentials signal

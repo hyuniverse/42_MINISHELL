@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/24 17:33:13 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/25 12:13:28 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <signal.h>
 # include <termios.h>
+# include <fcntl.h>
 # include "./Libft/get_next_line_bonus.h"
 # include "./Libft/libft.h"
 
@@ -64,6 +65,8 @@ typedef struct s_phrase
 	t_token			*head;
 	t_token			*tail;
 	t_token			*rd;
+	char			*infile_name;
+	char			*outfile_name;
 	int				cnt;
 	struct s_phrase	*next;
 }	t_phrase;
@@ -151,6 +154,12 @@ int		child_process_exe(t_phrase *phrase, char **envp);
 
 /*-----ms_pwd.c-----*/
 int		ms_pwd(char **argv);
+
+/*-----ms_redirection.c-----*/
+void	redirection_to_filename(t_phrase *phrase);
+int		is_output_error(t_token *token);
+char	*make_hd_file(t_token *token);
+int		open_in_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
 
 /*-----ms_unset.c-----*/
 int		ms_unset(t_envp **my_envp, char **argv);
