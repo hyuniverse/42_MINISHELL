@@ -82,7 +82,10 @@ void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr, int type)
 	}
 	else
 	{
-		token->next = phrase->rd->next;
+		if (phrase->tail == phrase->rd)
+			phrase->tail = token;
+		else
+			token->next = phrase->rd->next;
 		phrase->rd->next = token;
 		phrase->rd = token;
 	}
