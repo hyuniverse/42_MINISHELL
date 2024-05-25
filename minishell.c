@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/24 17:28:35 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:05:40 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	exec_minishell(t_envp **my_envp)
 		{
 			list = lexer(buffer);
 			add_history(buffer);
+			redirection_to_filename(list);
 			if (list->cnt == 1)
 				process_code = exe_one_command(my_envp, list->head);
 			else
@@ -67,8 +68,31 @@ void	exec_minishell(t_envp **my_envp)
 
 int	exe_one_command(t_envp **my_envp, t_phrase *phrase)
 {
+	int	infile_fd;
+	int	outfile_fd;
+	int	stdin_fd;
+	int	stdout_fd;
+	int	return_code;
+	
+	if (phrase->head == NULL)
+	{
+		if (ft_strncmp(phrase->infile_name, "/Users/siychoi/temp/.heredoc", ft_strlen(phrase->infile_name)) == 0)
+			unlink(phrase->infile_name);
+		return (0);
+	}
 	if (is_builtin_cmd(phrase))
-		return (exe_only_builtin_cmd(my_envp, phrase));
+	{
+		stdin_fd = dup(0);
+		stdout_fd = dup(1);
+		if (open_in_and_out_fd(phrase, &infile_fd, &outfile_fd) != TRUE)
+			return (errno);
+		return_code = exe_only_builtin_cmd(my_envp, phrase);
+		if (ft_strncmp(phrase->infile_name, "/Users/siychoi/temp/.heredoc", ft_strlen(phrase->infile_name)) == 0)
+			unlink(phrase->infile_name);
+		dup2(stdin_fd, 0);
+		dup2(stdout_fd, 1);
+		return (return_code);
+	}
 	else
 		return (exe_only_builtout_cmd(my_envp, phrase));
 }
@@ -101,14 +125,22 @@ char	**token_to_arr(t_phrase *phrase)
 {
 	char	**result;
 	int		i;
+	int		cnt;
 	t_token	*token;
 
 	i = 0;
-	result = (char **)malloc(sizeof(char *) * (phrase->cnt + 1));
+	cnt = 0;
+	token = phrase->head;
+	while (token != NULL)
+	{
+		cnt++;
+		token = token->next;
+	}
+	result = (char **)malloc(sizeof(char *) * (cnt + 1));
 	if (result == NULL)
 		exit(1);
 	token = phrase->head;
-	while (i < phrase->cnt)
+	while (i < cnt)
 	{
 		result[i] = ft_strdup(token->data);
 		i++;
