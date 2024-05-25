@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:44:10 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:44 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/25 16:19:34 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int	ms_pwd(char **argv)
 		}
 	}
 	else
-		ft_putendl_fd(wd, 2);
+		ft_putendl_fd(wd, 1);
 	return (0);
 }
