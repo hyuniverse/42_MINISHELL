@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:23 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/25 16:17:34 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd)
 	}
 	if (phrase->outfile_name != NULL)
 	{
+		printf("outfile_type = %d\n", phrase->outfile_type);
 		if (phrase->outfile_type == 4)
 			*outfile_fd = open(phrase->outfile_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		else if (phrase->outfile_type == 5)

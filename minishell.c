@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:40 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/25 17:15:48 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	exe_one_command(t_envp **my_envp, t_phrase *phrase)
 	int	stdout_fd;
 	int	return_code;
 	
+	infile_fd = 0;
+	outfile_fd = 1;
 	if (phrase->head == NULL)
 	{
 		if (ft_strncmp(phrase->infile_name, "/Users/siychoi/temp/.heredoc", ft_strlen(phrase->infile_name)) == 0)
