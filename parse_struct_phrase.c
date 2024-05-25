@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/25 09:42:30 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/25 15:56:14 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_phrase	*get_phrase(void)
 	phrase->rd = 0;
 	phrase->infile_name = NULL;
 	phrase->outfile_name = NULL;
+	phrase->outfile_type = 0;
 	phrase->next = 0;
 	phrase->cnt = 0;
 	return (phrase);

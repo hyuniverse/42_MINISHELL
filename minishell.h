@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 12:13:28 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/25 15:55:24 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_phrase
 	t_token			*rd;
 	char			*infile_name;
 	char			*outfile_name;
+	int				outfile_type;
 	int				cnt;
 	struct s_phrase	*next;
 }	t_phrase;
@@ -145,7 +146,7 @@ int		ms_export(t_envp **my_envp, char **argv);
 void	add_key_and_value(t_envp **my_envp, char *str, int idx);
 void	print_envp(t_envp **my_envp);
 
-/*-----ms_builtin_cmd.c-----*/
+/*-----ms_process.c-----*/
 int		set_process(t_envp **my_envp, t_input *list);
 void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
 void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
@@ -156,10 +157,11 @@ int		child_process_exe(t_phrase *phrase, char **envp);
 int		ms_pwd(char **argv);
 
 /*-----ms_redirection.c-----*/
-void	redirection_to_filename(t_phrase *phrase);
+void	skip_redirection(t_phrase *phrase);
+void	redirection_to_filename(t_input *input);
 int		is_output_error(t_token *token);
 char	*make_hd_file(t_token *token);
-int		open_in_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
+int		open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
 
 /*-----ms_unset.c-----*/
 int		ms_unset(t_envp **my_envp, char **argv);

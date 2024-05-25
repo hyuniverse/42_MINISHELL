@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 14:34:05 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/25 15:49:28 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	exec_minishell(t_envp **my_envp)
 		{
 			list = lexer(buffer);
 			add_history(buffer);
-			redirection_to_filename(list->head);
+			redirection_to_filename(list);
 			if (list->cnt == 1)
 				process_code = exe_one_command(my_envp, list->head);
 			else
@@ -84,7 +84,7 @@ int	exe_one_command(t_envp **my_envp, t_phrase *phrase)
 	{
 		stdin_fd = dup(0);
 		stdout_fd = dup(1);
-		if (open_in_out_fd(phrase, &infile_fd, &outfile_fd) != TRUE)
+		if (open_in_and_out_fd(phrase, &infile_fd, &outfile_fd) != TRUE)
 			return (errno);
 		return_code = exe_only_builtin_cmd(my_envp, phrase);
 		if (ft_strncmp(phrase->infile_name, "/Users/siychoi/temp/.heredoc", ft_strlen(phrase->infile_name)) == 0)

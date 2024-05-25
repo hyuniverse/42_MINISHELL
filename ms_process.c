@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/24 16:26:26 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/25 15:57:42 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_process(t_envp **my_envp, t_input *list)
+int	set_process(t_envp **my_envp, t_input *input)
 {
 	t_fd	p;
 	t_phrase	*phrase;
@@ -20,12 +20,12 @@ int	set_process(t_envp **my_envp, t_input *list)
 	int		i;
 
 	i = 0;
-	phrase = list->head;
+	phrase = input->head;
 	pipe(p.fd);
 	first_process(my_envp, phrase, p);
 	p.temp_fd = p.fd[0];
 	close(p.fd[1]);
-	while (i < list->cnt - 2)
+	while (i < input->cnt - 2)
 	{
 		pipe(p.fd);
 		connect_process(my_envp, phrase, p);
@@ -35,22 +35,28 @@ int	set_process(t_envp **my_envp, t_input *list)
 		i++;
 		phrase = phrase->next;
 	}
-	phrase = list->tail;
+	phrase = input->tail;
 	last_code = last_process(my_envp, phrase, p);
 	close(p.fd[0]);
-	return (wait_and_return(list, last_code));
+	return (wait_and_return(input, last_code));
 }
 
 void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 {
 	pid_t	pid;
 	char	**envp;
+	int		infile_fd;
+	int		outfile_fd;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		set_child_signal();
-		dup2(p.fd[1], 1);
+		infile_fd = 0;
+		outfile_fd = 1;
+		open_in_and_out_fd(phrase, &infile_fd, &outfile_fd);
+		if (outfile_fd == 1)
+			dup2(p.fd[1], 1);
 		close(p.fd[1]);
 		close(p.fd[0]);
 		envp = envp_list_to_arr(my_envp);
@@ -69,13 +75,20 @@ void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 {
 	pid_t	pid;
 	char	**envp;
+	int		infile_fd;
+	int		outfile_fd;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		set_child_signal();
-		dup2(p.temp_fd, 0);
-		dup2(p.fd[1], 1);
+		infile_fd = 0;
+		outfile_fd = 1;
+		open_in_and_out_fd(phrase, &infile_fd, &outfile_fd);
+		if (infile_fd == 0)
+			dup2(p.temp_fd, 0);
+		if (outfile_fd == 1)
+			dup2(p.fd[1], 1);
 		close(p.fd[0]);
 		close(p.fd[1]);
 		close(p.temp_fd);
@@ -91,12 +104,18 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 {
 	pid_t	pid;
 	char	**envp;
-
+	int		infile_fd;
+	int		outfile_fd;
+	
 	pid = fork();
 	if (pid == 0)
 	{
 		set_child_signal();
-		dup2(p.temp_fd, 0);
+		infile_fd = 0;
+		outfile_fd = 1;
+		open_in_and_out_fd(phrase, &infile_fd, &outfile_fd);
+		if (infile_fd == 0)
+			dup2(p.temp_fd, 0);
 		close(p.temp_fd);
 		envp = envp_list_to_arr(my_envp);
 		return (child_process_exe(phrase, envp));
