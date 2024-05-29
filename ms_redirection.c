@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:17:34 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:24:30 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ void	redirection_to_filename(t_input *input)
 					if (phrase->infile_name != NULL && ft_strncmp(phrase->infile_name, "/Users/siychoi/temp/.heredoc", 28) == 0)
 						unlink(phrase->infile_name);
 					phrase->infile_name = make_hd_file(token);
+					phrase->infile_type = 3;
 				}
 				else
+				{
 					phrase->infile_name = ft_strdup(token->data);
-				if (token->type == 4 && access(token->data, R_OK != 0))
-					break ;
+					phrase->infile_type = 2;
+				}
 			}
 			else if (token->type == 4 || token->type == 5)
 			{
@@ -89,7 +91,7 @@ char	*make_hd_file(t_token *token)
 {
 	int		fd;
 	char	*path;
-	char	*buffer;
+	int		status;
 
 	path = ft_substr("/Users/siychoi/temp/.heredoc1", 0, 30);
 	while (1)
@@ -97,23 +99,38 @@ char	*make_hd_file(t_token *token)
 		if (access(path, F_OK) == 0)
 			path = ft_strjoin(path, "1");
 		else
-		{
-			fd = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			break;
-		}
+			break ;
 	}
-	while (1)
-	{
-		buffer = readline("> ");
-		if (buffer == NULL)
-			exit(1);
-		if (ms_strncmp(buffer, token->data, ft_strlen(buffer)) == 0)
-			break;
-		ft_putendl_fd(buffer, fd);
-		free(buffer);
-	}
+	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	make_hd_content(token, fd);
+	wait(&status);
 	close(fd);
 	return (path);
+}
+
+void	make_hd_content(t_token *token, int fd)
+{
+	pid_t	pid;
+	char	*buffer;
+	
+	pid = fork();
+	if (pid == 0)
+	{
+		while (1)
+		{
+			buffer = readline("> ");
+			if (buffer == NULL)
+				exit(1);
+			if (ms_strncmp(buffer, token->data, ft_strlen(buffer)) == 0)
+				break ;
+			ft_putendl_fd(buffer, fd);
+			free(buffer);
+		}
+		close(fd);
+		exit(1);
+	}
+	else if (pid == -1)
+		exit(1);
 }
 
 int	open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd)
@@ -135,7 +152,6 @@ int	open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd)
 	}
 	if (phrase->outfile_name != NULL)
 	{
-		printf("outfile_type = %d\n", phrase->outfile_type);
 		if (phrase->outfile_type == 4)
 			*outfile_fd = open(phrase->outfile_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		else if (phrase->outfile_type == 5)

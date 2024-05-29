@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:41 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:20:26 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_phrase
 	t_token			*rd;
 	char			*infile_name;
 	char			*outfile_name;
+	int				infile_type;
 	int				outfile_type;
 	int				cnt;
 	struct s_phrase	*next;
@@ -161,6 +162,7 @@ void	skip_redirection(t_phrase *phrase);
 void	redirection_to_filename(t_input *input);
 int		is_output_error(t_token *token);
 char	*make_hd_file(t_token *token);
+void	make_hd_content(t_token *token, int fd);
 int		open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
 
 /*-----ms_unset.c-----*/
