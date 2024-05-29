@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:44:32 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:47 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:26:36 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	catch_int(void)
 	rl_redisplay();
 }
 
-void	catch_term(void)
+void	catch_int_hd(void)
 {
-	printf("exit");
+	printf("\n");
+	exit(1);
 }
 
 void	set_signal(int signo, void *handler)
@@ -69,6 +70,11 @@ void	set_child_signal(void)
 	display_ctrl();
 	set_signal(SIGINT, SIG_DFL);
 	set_signal(SIGQUIT, SIG_DFL);
+}
+
+void	set_hd_signal(void)
+{
+	set_signal(SIGINT, &catch_int_hd);
 }
 
 void	print_signal_exit_status(int signo)

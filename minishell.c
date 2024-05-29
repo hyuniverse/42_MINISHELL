@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/29 10:29:27 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:16:04 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ void	exec_minishell(t_envp **my_envp)
 	set_interactive_signal();
 	while (1)
 	{
-		buffer = readline("minishell$ ");
+		buffer = readline("minishell$ \033[s");
 		if (buffer == NULL)
 		{
-			printf("\033[1A");
-			printf("\033[11C");
-			printf("exit\n");
+			printf("\033[u\033[1B\033[1Aexit\n");
 			tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
 			exit(1);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/29 10:20:26 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:26:18 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,10 +205,11 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr);
 t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr);
 t_input	*final_process(t_input *list);
 
-
+void	set_signal(int signo, void *handler);
 void	set_interactive_signal(void);
 void	set_wait_signal(void);
 void	set_child_signal(void);
+void	set_hd_signal(void);
 void	print_signal_exit_status(int signo);
 
 #endif
