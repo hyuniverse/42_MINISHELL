@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/29 15:16:04 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:22:08 by sehyun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	exec_minishell(t_envp **my_envp)
 	int				process_code;
 	t_input			*list;
 	struct termios	old_term;
+	int				flag;
 
+	flag = FALSE;
 	tcgetattr(STDIN_FILENO, &old_term);
 	set_interactive_signal();
 	while (1)
@@ -52,12 +54,17 @@ void	exec_minishell(t_envp **my_envp)
 		{
 			list = lexer(buffer);
 			add_history(buffer);
-			redirection_to_filename(list);
-			//handel_environment_variables(list);
-			if (list->cnt == 1)
-				process_code = exe_one_command(my_envp, list->head);
+			redirection_to_filename(list, &flag);
+			if (flag == TRUE)
+				flag = FALSE;
 			else
-				process_code = set_process(my_envp, list);
+			{
+				//handel_environment_variables(list);
+				if (list->cnt == 1)
+					process_code = exe_one_command(my_envp, list->head);
+				else
+					process_code = set_process(my_envp, list);
+			}
 			free(buffer);
 			free_input(list);
 			//'$?' 명령어 입력 시 process_code가 출력되어야함

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/29 15:28:35 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:23:35 by sehyun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,42 +22,44 @@ void	skip_redirection(t_phrase *phrase)
 	phrase->head = token;
 }
 
-void	redirection_to_filename(t_input *input)
+void	redirection_to_filename(t_input *input, int *flag)
 {
 	t_phrase	*phrase;
 	t_token		*token;
 	
 	phrase = input->head;
-	while (phrase != NULL)
+	while (phrase != NULL && *flag == FALSE)
 	{
 		token = phrase->head;
-		while (token != NULL && token->type != 1)
+		while (token != NULL && token->type != CNT)
 		{
-			if (token->type == 2 || token->type == 3)
+			if (token->type == IN || token->type == HD)
 			{
 				if (phrase->infile_name != NULL)
 					free(phrase->infile_name);
-				if (token->type == 3)
+				if (token->type == HD)
 				{
 					if (phrase->infile_name != NULL && ft_strncmp(phrase->infile_name, "/Users/siychoi/temp/.heredoc", 28) == 0)
 						unlink(phrase->infile_name);
-					phrase->infile_name = make_hd_file(token);
-					phrase->infile_type = 3;
+					phrase->infile_name = make_hd_file(token, flag);
+					if (*flag == TRUE)
+						break;
+					phrase->infile_type = HD;
 				}
 				else
 				{
 					phrase->infile_name = ft_strdup(token->data);
-					phrase->infile_type = 2;
+					phrase->infile_type = IN;
 				}
 			}
-			else if (token->type == 4 || token->type == 5)
+			else if (token->type == OUT || token->type == APD)
 			{
 				if (phrase->outfile_name != NULL)
 					free(phrase->outfile_name);
-				if (token->type == 4)
-					phrase->outfile_type = 4;
-				else if (token->type == 5)
-					phrase->outfile_type = 5;
+				if (token->type == OUT)
+					phrase->outfile_type = OUT;
+				else if (token->type == APD)
+					phrase->outfile_type = APD;
 				phrase->outfile_name = ft_strdup(token->data);
 				if (is_output_error(token) == 1)
 					break ;
@@ -87,13 +89,13 @@ int	is_output_error(t_token *token)
 	return (error_flag);
 }
 
-char	*make_hd_file(t_token *token)
+char	*make_hd_file(t_token *token, int *flag)
 {
 	int		fd;
 	char	*path;
 	int		status;
 
-	path = ft_substr("/Users/sehyupar/temp/.heredoc1", 0, 30);
+	path = ft_substr("/Users/siychoi/temp/.heredoc1", 0, 30);
 	while (1)
 	{
 		if (access(path, F_OK) == 0)
@@ -104,6 +106,8 @@ char	*make_hd_file(t_token *token)
 	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	make_hd_content(token, fd);
 	wait(&status);
+	if (WEXITSTATUS(status) == 2)
+		*flag = TRUE;
 	set_interactive_signal();
 	close(fd);
 	return (path);
