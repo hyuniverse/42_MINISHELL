@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/29 15:26:18 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:02:56 by sehyun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ int		ms_pwd(char **argv);
 
 /*-----ms_redirection.c-----*/
 void	skip_redirection(t_phrase *phrase);
-void	redirection_to_filename(t_input *input);
+void	redirection_to_filename(t_input *input, int *flag);
 int		is_output_error(t_token *token);
-char	*make_hd_file(t_token *token);
+char	*make_hd_file(t_token *token, int *flag);
 void	make_hd_content(t_token *token, int fd);
 int		open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:44:32 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/29 15:26:36 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:14:53 by sehyun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	catch_int(void)
 void	catch_int_hd(void)
 {
 	printf("\n");
-	exit(1);
+	exit(2);
 }
 
 void	set_signal(int signo, void *handler)
