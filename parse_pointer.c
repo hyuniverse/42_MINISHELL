@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pointer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:51:01 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:46 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/06 17:40:09 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	set_start(t_parsing_ptr *ptr)
 		printf("####set start(' %c ')####\n", *ptr->start);
 */
 
+
 }
 
 void	move_start(t_parsing_ptr *ptr)
@@ -49,6 +50,7 @@ void	move_start(t_parsing_ptr *ptr)
 		printf("####move start(' %c(%d) ')####\n", *ptr->start, *ptr->start);
 */
 
+
 }
 
 int	move_end(t_parsing_ptr *ptr)
@@ -61,6 +63,7 @@ int	move_end(t_parsing_ptr *ptr)
 	else
 		printf("####move end(' %c ')####\n", *ptr->end);
 */
+
 
 	return (1);
 }
