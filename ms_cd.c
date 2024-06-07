@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:42 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:23:03 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ms_cd(t_envp **my_envp, char **argv)
 
 	status = 0;
 	pwd = getcwd(NULL, 0);
-	if (argv[1] == NULL)
+	if (argv[1] == NULL || (argv[1][0] == '~' && argv[1][1] == '\0'))
 		return (ms_cd_no_options(my_envp, pwd));
 	if (argv[1][0] == '-' && argv[1][1] != '\0')
 		return (print_cd_error(NULL, 1));
