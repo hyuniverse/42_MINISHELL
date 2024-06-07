@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:26:47 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/06 17:43:38 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:24:35 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	change_stat(int *flag)
 t_input	*lexer(char *str)
 {
 	t_input			*list;
-	t_lexing_flag	flag;
+	t_quote_flag	flag;
 	t_parsing_ptr	ptr;
 
 	list = initial_process(str, &flag, &ptr);

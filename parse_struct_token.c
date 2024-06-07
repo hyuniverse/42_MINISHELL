@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:01:55 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:51 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:43:37 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,24 @@ void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr, int type)
 		phrase->rd = token;
 	}
 	phrase->cnt++;
+}
+
+void	add_token(t_phrase *phrase, char *str, int *len)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		exit(1);
+	token->data = str;
+	token->next = 0;
+	token->type = 0;
+	if (!phrase->tail)
+		phrase->head = token;
+	else
+		phrase->tail->next = token;
+	phrase->tail = token;
+	phrase->cnt++;
+	phrase->total_len += *len;
+	*len = 0;
 }

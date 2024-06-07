@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/30 12:02:56 by sehyun           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:59:45 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_phrase
 	int				infile_type;
 	int				outfile_type;
 	int				cnt;
+	int				total_len;
 	struct s_phrase	*next;
 }	t_phrase;
 
@@ -81,12 +82,11 @@ typedef struct s_input
 	int			valid;
 }	t_input;
 
-typedef struct s_lexing_flag
+typedef struct s_quote_flag
 {
-	int	cmd;
 	int	s_quote;
 	int	d_quote;
-}	t_lexing_flag;
+}	t_quote_flag;
 
 typedef struct s_parsing_ptr
 {
@@ -119,6 +119,9 @@ int		exe_only_builtin_cmd(t_envp **my_envp, t_phrase *phrase);
 int		ms_cd(t_envp **my_envp, char **argv);
 char	*find_value(t_envp **my_envp, char *str);
 char	*find_key(t_envp **my_envp, char *str);
+
+/*-----ms_dollar.c-----*/
+void	change_dollar_all_tokens(t_input *input, t_envp **my_envp);
 
 /*-----command_parsing.c-----*/
 char	*find_path(char **env);
@@ -179,13 +182,16 @@ t_input	*lexer(char *str);
 t_token	*get_token(int type, t_parsing_ptr *ptr);
 void	add_token_back(t_phrase *phrase, t_parsing_ptr *ptr);
 void	add_token_rd(t_phrase *phrase, t_parsing_ptr *ptr, int type);
+void	add_token(t_phrase *phrase, char *str, int *len);
 
 /*-----parse_struct_phrase.c-----*/
-void	add_phrase(t_input *list, t_parsing_ptr *ptr);
-void	delete_front(t_input *list);
+t_phrase	*get_phrase(void);
+void		add_phrase(t_input *list, t_parsing_ptr *ptr);
+void		delete_front(t_input *list);
 
 /*-----parse_struct_input.c-----*/
 t_input	*get_input(t_parsing_ptr *ptr);
+void	free_phrase(t_phrase *phrase);
 void	free_input(t_input *list);
 
 /*-----parse_pointer.c-----*/
@@ -198,11 +204,12 @@ int		move_end(t_parsing_ptr *ptr);
 int		is_space(char ch);
 int		is_pipe(t_input *list, char *str);
 int		is_discriminant(char ch);
-void	add_quote(t_parsing_ptr *ptr, t_lexing_flag *flag);
+void	add_quote(t_parsing_ptr *ptr, t_quote_flag *flag);
 void	add_redirection(t_input *list, t_parsing_ptr *ptr);
 
 /*-----parse_essentials.c-----*/
-t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr);
+void	init_quote_flag(t_quote_flag *flag);
+t_input	*initial_process(char *str, t_quote_flag *flag, t_parsing_ptr *ptr);
 t_input	*final_process(t_input *list);
 
 void	set_signal(int signo, void *handler);

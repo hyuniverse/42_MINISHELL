@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_discriminant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/06 17:43:19 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:23:58 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	is_discriminant(char ch)
 	return (TRUE);
 }
 
-void	add_quote(t_parsing_ptr *ptr, t_lexing_flag *flag)
+void	add_quote(t_parsing_ptr *ptr, t_quote_flag *flag)
 {
 	if (*ptr->end == DOUBLE_QUOTE && flag->s_quote == FALSE)
 		change_stat(&flag->d_quote);
