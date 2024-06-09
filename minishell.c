@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/30 12:22:08 by sehyun           ###   ########.fr       */
+/*   Updated: 2024/06/09 12:30:30 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	exec_minishell(t_envp **my_envp)
 		else if (ft_strlen(buffer) != 0)
 		{
 			list = lexer(buffer);
-			add_history(buffer);
+		 	add_history(buffer);
 			redirection_to_filename(list, &flag);
+			change_dollar_all_tokens(list, my_envp);
 			if (flag == TRUE)
 				flag = FALSE;
 			else
 			{
-				//handel_environment_variables(list);
 				if (list->cnt == 1)
 					process_code = exe_one_command(my_envp, list->head);
 				else
@@ -67,7 +67,7 @@ void	exec_minishell(t_envp **my_envp)
 			}
 			free(buffer);
 			free_input(list);
-			//'$?' 명령어 입력 시 process_code가 출력되어야함
+			change_value(my_envp, "?", ft_itoa(process_code));
 		}
 	}
 }
@@ -178,5 +178,5 @@ int	exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase)
 	if (WIFSIGNALED(status))
 		print_signal_exit_status(WTERMSIG(status));
 	set_interactive_signal();
-	return (0);
+	return (WEXITSTATUS(status));
 }

@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:06:27 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:43 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/09 11:29:17 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_env(t_envp **my_envp)
 	n = *my_envp;
 	while (i < lst_size)
 	{
-		if (n->value != NULL)
+		if (n->value != NULL && n->key[0] != '?')
 		{
 			ft_putstr_fd(n->key, 1);
 			ft_putstr_fd("=", 1);

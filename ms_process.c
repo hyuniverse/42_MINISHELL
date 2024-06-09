@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:44 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/09 12:31:13 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 		close(p.fd[1]);
 		close(p.fd[0]);
 		envp = envp_list_to_arr(my_envp);
-		child_process_exe(phrase, envp);
+		if (is_builtin_cmd(phrase) == TRUE)
+			exit(exe_only_builtin_cmd(my_envp, phrase));
+		else
+			child_process_exe(phrase, envp);
 	}
 	else if (pid == -1)
 		exit(1);
@@ -93,7 +96,10 @@ void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 		close(p.fd[1]);
 		close(p.temp_fd);
 		envp = envp_list_to_arr(my_envp);
-		child_process_exe(phrase, envp);
+		if (is_builtin_cmd(phrase) == TRUE)
+			exit(exe_only_builtin_cmd(my_envp, phrase));
+		else
+			child_process_exe(phrase, envp);
 	}
 	else if (pid == -1)
 		exit(1);
@@ -118,7 +124,10 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 			dup2(p.temp_fd, 0);
 		close(p.temp_fd);
 		envp = envp_list_to_arr(my_envp);
-		return (child_process_exe(phrase, envp));
+		if (is_builtin_cmd(phrase) == TRUE)
+			exit(exe_only_builtin_cmd(my_envp, phrase));
+		else
+			return(child_process_exe(phrase, envp));
 	}
 	else if (pid == -1)
 		exit(1);

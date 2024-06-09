@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/07 16:55:30 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/09 12:07:56 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	envp_arr_to_list(char **envp, t_envp **my_envp)
 		add_key_and_value(my_envp, envp[i], idx);
 		i++;
 	}
+	add_key_and_value(my_envp, "?=0", 1);
 }
 
 char	**envp_list_to_arr(t_envp **my_envp)
@@ -84,12 +85,16 @@ char	**envp_list_to_arr(t_envp **my_envp)
 		exit(1);
 	n = *my_envp;
 	while (i < lst_size)
-	{
-		result[i] = cmd_strjoin(n->key, "=", n->value);
+	{	
+		if (n->value != NULL)
+			result[i] = cmd_strjoin(n->key, "=", n->value);
+		else
+			result[i] = ft_strdup(n->key);
 		i++;
 		temp = n;
 		n = n->next;
-		free(temp->value);
+		if (temp->value != NULL)
+			free(temp->value);
 		free(temp->key);
 		free(temp);
 	}
