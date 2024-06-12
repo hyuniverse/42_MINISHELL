@@ -6,14 +6,13 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/07 19:23:03 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:19:19 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	print_cd_error(char *str, int error_type);
-static void	change_envp_pwd(t_envp **my_envp, char *old_pwd);
 static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd);
 
 int	ms_cd(t_envp **my_envp, char **argv)
@@ -33,7 +32,10 @@ int	ms_cd(t_envp **my_envp, char **argv)
 		status = 1;
 	}
 	else
-		change_envp_pwd(my_envp, pwd);
+	{
+		change_value(my_envp, "OLDPWD", pwd);
+		change_value(my_envp, "PWD", getcwd(NULL, 0));
+	}
 	return (status);
 }
 
@@ -45,14 +47,11 @@ static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd)
 		return (1);
 	}
 	else
-		change_envp_pwd(my_envp, old_pwd);
+	{
+		change_value(my_envp, "OLDPWD", old_pwd);
+		change_value(my_envp, "PWD", getcwd(NULL, 0));
+	}
 	return (0);
-}
-
-static void	change_envp_pwd(t_envp **my_envp, char *old_pwd)
-{	
-	change_value(my_envp, "OLDPWD", old_pwd);
-	change_value(my_envp, "PWD", getcwd(NULL, 0));
 }
 
 static int	print_cd_error(char *str, int error_type)

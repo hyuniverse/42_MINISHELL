@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/30 12:23:35 by sehyun           ###   ########.fr       */
+/*   Updated: 2024/06/10 14:34:36 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	redirection_to_filename(t_input *input, int *flag)
 {
 	t_phrase	*phrase;
 	t_token		*token;
-	
+
 	phrase = input->head;
 	while (phrase != NULL && *flag == FALSE)
 	{

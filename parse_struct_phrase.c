@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/29 10:20:01 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:51:36 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_phrase	*get_phrase(void)
 	phrase->outfile_type = 0;
 	phrase->next = 0;
 	phrase->cnt = 0;
+	phrase->total_len = 0;
 	return (phrase);
 }
 

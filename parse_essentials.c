@@ -6,24 +6,23 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:44:50 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:45 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:23:12 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_lexing_flag(t_lexing_flag *flag)
+void	init_quote_flag(t_quote_flag *flag)
 {
-	flag->cmd = FALSE;
 	flag->s_quote = FALSE;
 	flag->d_quote = FALSE;
 }
 
-t_input	*initial_process(char *str, t_lexing_flag *flag, t_parsing_ptr *ptr)
+t_input	*initial_process(char *str, t_quote_flag *flag, t_parsing_ptr *ptr)
 {
 	t_input	*list;
 
-	init_lexing_flag(flag);
+	init_quote_flag(flag);
 	init_ptr(ptr, str);
 	list = get_input(ptr);
 	return (list);
