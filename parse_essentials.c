@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_essentials.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:44:50 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/09 17:23:12 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/12 15:36:56 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,12 @@ t_input	*initial_process(char *str, t_quote_flag *flag, t_parsing_ptr *ptr)
 	return (list);
 }
 
-
 t_input	*final_process(t_input *list)
 {
 	if (list->valid == FALSE)
 	{
 		free_input(list);
-		perror("!!!!!syntax error near unexpected token");
 		list = 0;
 	}
-	//printf("final process completed");
 	return (list);
 }

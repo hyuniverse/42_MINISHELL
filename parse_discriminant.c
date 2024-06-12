@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_discriminant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/07 16:23:58 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/12 20:08:37 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@ int	is_space(char ch)
 	return (FALSE);
 }
 
-int	is_pipe(t_input *list, char *str)
+int	is_pipe(t_input *list, char *str, char start)
 {
-	int			cnt;
+	int	i;
 
-	cnt = 0;
-
-	while (*str && is_space(*str))
-		str++;
-	if (*str && *str == '|')
+	i = 0;
+	if (!str)
+		exit(1);
+	while (str[i] && is_space(str[i]))
+		i++;
+	if ((start == '|' && list->head->cnt == 0) || !str[i] || str[i] == '|')
 	{
+		if (!str[i])
+			print_syntax_error("");
+		else
+			print_syntax_error("|");
 		list->valid = FALSE;
 		return (FALSE);
 	}
@@ -59,7 +64,7 @@ void	add_quote(t_parsing_ptr *ptr, t_quote_flag *flag)
 	}
 }
 
-int		get_rd_type(char ch, int len)
+int	get_rd_type(char ch, int len)
 {
 	if (ch == '<' && len == 1)
 		return (IN);
@@ -75,12 +80,10 @@ int		get_rd_type(char ch, int len)
 
 void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 {
-	char		rd;
-	//int			cnt;
-	int			type;
+	char	rd;
+	int		type;
 
 	rd = *ptr->end;
-	//cnt = 0;
 	if (ptr->len != 0)
 		add_token_back(list->tail, ptr);
 	while (ptr->eof == FALSE && ptr->len < 2 && *ptr->end == rd)
@@ -94,5 +97,8 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 	if (ptr->len > 0)
 		add_token_rd(list->tail, ptr, type);
 	else
+	{
+		print_syntax_error(ptr->end);
 		list->valid = FALSE;
+	}
 }

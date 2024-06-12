@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:26:47 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/07 16:24:35 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:58:50 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_input	*lexer(char *str)
 			add_quote(&ptr, &flag);
 		if (ptr.eof == FALSE && (*ptr.end == '<' || *ptr.end == '>'))
 			add_redirection(list, &ptr);
-		else if (ptr.eof == FALSE && *ptr.end == '|' && is_pipe(list, ptr.end + 1))
+		else if (ptr.eof == FALSE && *ptr.end == '|' && is_pipe(list, ptr.end + 1, *ptr.start))
 			add_phrase(list, &ptr);
 		else if (ptr.eof == FALSE)
 			move_end(&ptr);
