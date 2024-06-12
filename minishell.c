@@ -43,10 +43,11 @@ void	exec_minishell(t_envp **my_envp)
 	set_interactive_signal();
 	while (1)
 	{
-		buffer = readline("minishell$ \033[s");
+		printf("minishell $ \033[s\b\b\b\b\b\b\b\b\b\b\b\b");
+		buffer = readline("minishell$ ");
 		if (buffer == NULL)
 		{
-			printf("\033[u\033[1B\033[1Aexit\n");
+			printf("\033[u\033[1B\033[1A\bexit\n");
 			tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
 			exit(0);
 		}
