@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/09 12:07:56 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:10:23 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,32 +73,28 @@ void	envp_arr_to_list(char **envp, t_envp **my_envp)
 char	**envp_list_to_arr(t_envp **my_envp)
 {
 	char	**result;
-	int		i;
-	int		lst_size;
 	t_envp	*n;
 	t_envp	*temp;
 
-	i = 0;
-	lst_size = envp_size(my_envp);
-	result = (char **)malloc(sizeof(char *) * (lst_size + 1));
+	result = (char **)malloc(sizeof(char *) * (envp_size(my_envp) + 1));
 	if (result == NULL)
 		exit(1);
 	n = *my_envp;
-	while (i < lst_size)
+	while (n)
 	{	
 		if (n->value != NULL)
-			result[i] = cmd_strjoin(n->key, "=", n->value);
+			*result = cmd_strjoin(n->key, "=", n->value);
 		else
-			result[i] = ft_strdup(n->key);
-		i++;
+			*result = ft_strdup(n->key);
 		temp = n;
 		n = n->next;
 		if (temp->value != NULL)
 			free(temp->value);
 		free(temp->key);
 		free(temp);
+		result++;
 	}
-	result[i] = NULL;
+	*result = NULL;
 	return (result);
 }
 

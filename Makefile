@@ -6,13 +6,13 @@
 #    By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:23:47 by siychoi           #+#    #+#              #
-#    Updated: 2024/06/07 17:41:30 by siychoi          ###   ########.fr        #
+#    Updated: 2024/06/12 14:20:20 by siychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror
 RM			= rm
 RMFLAG		= -f
 AR			= ar

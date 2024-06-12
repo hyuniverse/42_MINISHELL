@@ -6,42 +6,36 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:55:33 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/07 17:46:39 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:24:50 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	change_dollar_value(t_envp **my_envp, t_phrase *phrase, char *str, int *i)
+int	change_dollar_value(t_envp **my_envp, t_phrase *phrase, char *s, int *i)
 {
 	char	*key;
 	char	*value;
 	int		j;
 
 	j = 1;
-	while(str[j])
+	while (s[j])
 	{
-		if (is_space(str[j]) || str[j] == '$' || str[j] == SINGLE_QUOTE || str[j] == DOUBLE_QUOTE)
+		if (is_space(s[j]) || s[j] == '$' || s[j] == '\'' || s[j] == '\"')
 			break ;
 		j++;
 	}
-	//if (str[j] != '\0')
 	*i += j;
-		/*
-	else
-		*i += j;
-		*/
 	if (j != 1)
 	{
-		key = ft_substr(str, 1, j-1);
+		key = ft_substr(s, 1, j - 1);
 		value = find_value(my_envp, key);
 		if (value)
 		{
 			j = ft_strlen(value);
-			add_token(phrase ,value, &j);
+			add_token(phrase, value, &j);
 		}
-		free(key); 
+		free(key);
 		return (1);
 	}
 	return (0);
@@ -64,18 +58,17 @@ char	*phrase_to_str(t_phrase *phrase)
 		token = token->next;
 		i++;
 	}
-	//free_phrase(phrase);
 	return (str);
 }
 
 char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 {
-	int		i;
+	int				i;
 	t_quote_flag	flag;
-	int		cnt;
-	char	*str;
-	t_phrase *phrase;
-	
+	int				cnt;
+	char			*str;
+	t_phrase		*phrase;
+
 	i = 0;
 	init_quote_flag(&flag);
 	phrase = get_phrase();
@@ -83,7 +76,7 @@ char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 		exit(1);
 	cnt = 0;
 	str = token->data;
-	while(str && i < (int)ft_strlen(token->data))
+	while (str && i < (int)ft_strlen(token->data))
 	{
 		if (str[i] == DOUBLE_QUOTE && flag.s_quote == FALSE)
 		{
@@ -127,7 +120,6 @@ void	change_dollar_all_tokens(t_input *input, t_envp **my_envp)
 	char		*tmp;
 
 	phrase = input->head;
-
 	while (phrase)
 	{
 		token = phrase->head;

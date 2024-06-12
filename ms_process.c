@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/09 12:31:13 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:10:11 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	set_process(t_envp **my_envp, t_input *input)
 {
-	t_fd	p;
+	t_fd		p;
 	t_phrase	*phrase;
-	int		last_code;
-	int		i;
+	int			last_code;
+	int			i;
 
 	i = 0;
 	phrase = input->head;
@@ -127,7 +127,7 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 		if (is_builtin_cmd(phrase) == TRUE)
 			exit(exe_only_builtin_cmd(my_envp, phrase));
 		else
-			return(child_process_exe(phrase, envp));
+			return (child_process_exe(phrase, envp));
 	}
 	else if (pid == -1)
 		exit(1);
