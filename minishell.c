@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/12 13:20:38 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/12 15:16:18 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,25 @@ void	exec_minishell(t_envp **my_envp)
 		{
 			list = lexer(buffer);
 			add_history(buffer);
-			redirection_to_filename(list, &flag);
-			change_dollar_all_tokens(list, my_envp);
+			if (list)
+			{
+				redirection_to_filename(list, &flag);
+				change_dollar_all_tokens(list, my_envp);
+			}
 			if (flag == TRUE)
 				flag = FALSE;
 			else
 			{
-				if (list->cnt == 1)
+				if (!list)
+					process_code = 258;
+				else if (list->cnt == 1)
 					process_code = exe_one_command(my_envp, list->head);
 				else
 					process_code = set_process(my_envp, list);
 			}
 			free(buffer);
-			free_input(list);
+			if (list)
+				free_input(list);
 			change_value(my_envp, "?", ft_itoa(process_code));
 		}
 	}

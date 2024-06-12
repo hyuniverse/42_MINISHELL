@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/10 14:15:55 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/12 20:08:18 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char	*remove_backslash(char *str);
 int		print_code_error(int code, char *cmd);
 int		print_builtin_error(char *cmd, char *str);
 int		print_code_error_builtin(int code, char *cmd);
+void	print_syntax_error(char	*ptr);
 
 /*-----ms_echo.c-----*/
 int		ms_echo(char **argv);
@@ -202,7 +203,7 @@ int		move_end(t_parsing_ptr *ptr);
 
 /*-----parse_discriminant.c-----*/
 int		is_space(char ch);
-int		is_pipe(t_input *list, char *str);
+int		is_pipe(t_input *list, char *str, char start);
 int		is_discriminant(char ch);
 void	add_quote(t_parsing_ptr *ptr, t_quote_flag *flag);
 void	add_redirection(t_input *list, t_parsing_ptr *ptr);
