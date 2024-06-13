@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 18:47:44 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:56:36 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	exec_minishell(t_envp **my_envp)
 				change_value(my_envp, "?", ft_itoa(process_code));
 				continue ;
 			}
-			printf("%s\n", list->head->head->data);
 			change_dollar_all_tokens(list, my_envp);
 			redirection_to_filename(list, &flag);
 			if (flag == TRUE)
