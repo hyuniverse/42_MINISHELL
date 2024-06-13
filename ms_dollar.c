@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_dollar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:55:33 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 17:32:46 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 20:48:08 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 					add_token(phrase, ft_substr(str, i - cnt, cnt), &cnt);
 				if (change_dollar_value(my_envp, phrase, &str[i], &i))
 					cnt = 0;
+				else
+					cnt ++;
 			}
 			else
 			{
