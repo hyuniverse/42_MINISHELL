@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 11:51:30 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 18:29:37 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,6 @@ void	set_interactive_signal(void);
 void	set_wait_signal(void);
 void	set_child_signal(void);
 void	set_hd_signal(void);
-void	print_signal_exit_status(int signo);
+int		print_signal_exit_status(int signo);
 
 #endif
