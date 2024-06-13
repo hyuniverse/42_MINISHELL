@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/10 19:10:11 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 14:12:57 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	if (pid == 0)
 	{
 		set_child_signal();
+		if (phrase->outfile_type == 6 || phrase->infile_type == 6)
+			exit(1);
+		if (phrase->head == NULL)
+		{
+			if (phrase->infile_type == 3)
+				unlink(phrase->infile_name);
+			exit(0);
+		}
 		infile_fd = 0;
 		outfile_fd = 1;
 		open_in_and_out_fd(phrase, &infile_fd, &outfile_fd);
@@ -85,6 +93,14 @@ void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	if (pid == 0)
 	{
 		set_child_signal();
+		if (phrase->outfile_type == 6 || phrase->infile_type == 6)
+			exit(1);
+		if (phrase->head == NULL)
+		{
+			if (phrase->infile_type == 3)
+				unlink(phrase->infile_name);
+			exit(0);
+		}
 		infile_fd = 0;
 		outfile_fd = 1;
 		open_in_and_out_fd(phrase, &infile_fd, &outfile_fd);
@@ -117,6 +133,14 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 	if (pid == 0)
 	{
 		set_child_signal();
+		if (phrase->outfile_type == 6 || phrase->infile_type == 6)
+			exit(1);
+		if (phrase->head == NULL)
+		{
+			if (phrase->infile_type == 3)
+				unlink(phrase->infile_name);
+			exit(0);
+		}
 		infile_fd = 0;
 		outfile_fd = 1;
 		open_in_and_out_fd(phrase, &infile_fd, &outfile_fd);

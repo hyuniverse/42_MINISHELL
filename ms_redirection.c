@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/10 14:34:36 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:27:21 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ void	redirection_to_filename(t_input *input, int *flag)
 				{
 					phrase->infile_name = ft_strdup(token->data);
 					phrase->infile_type = IN;
+					if (is_input_error(token) == 1)
+					{
+						phrase->infile_type = ERROR;
+						ft_putstr_fd("minishell: ", 2);
+						ft_putstr_fd(token->data, 2);
+						ft_putstr_fd(": ", 2);
+						ft_putstr_fd(strerror(errno), 2);
+						ft_putstr_fd("\n", 2);
+						break ;
+					}
 				}
 			}
 			else if (token->type == OUT || token->type == APD)
@@ -62,13 +72,37 @@ void	redirection_to_filename(t_input *input, int *flag)
 					phrase->outfile_type = APD;
 				phrase->outfile_name = ft_strdup(token->data);
 				if (is_output_error(token) == 1)
+				{
+					phrase->outfile_type = ERROR;
+					ft_putstr_fd("minishell: ", 2);
+					ft_putstr_fd(token->data, 2);
+					ft_putstr_fd(": ", 2);
+					ft_putstr_fd(strerror(errno), 2);
+					ft_putstr_fd("\n", 2);
 					break ;
+				}
 			}
 			token = token->next;
 		}
 		skip_redirection(phrase);
 		phrase = phrase->next;
 	}
+}
+
+int	is_input_error(t_token *token)
+{
+	int	in_fd;
+	int	error_flag;
+
+	in_fd = 0;
+	error_flag = 0;
+	if (token->type == 2)
+		in_fd = open(token->data, O_RDONLY, 0644);
+	if (in_fd < 0)
+		error_flag = 1;
+	if (in_fd > 0)
+		close(in_fd);
+	return (error_flag);
 }
 
 int	is_output_error(t_token *token)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/12 21:16:21 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:27:00 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ int	exe_one_command(t_envp **my_envp, t_phrase *phrase)
 
 	fd[0] = 0;
 	fd[1] = 1;
-	if (phrase->head == NULL && phrase->infile_type == 3)
+	if (phrase->outfile_type == 6 || phrase->infile_type == 6)
+		return (1);
+	if (phrase->head == NULL)
 	{
-		unlink(phrase->infile_name);
+		if (phrase->infile_type == 3)
+			unlink(phrase->infile_name);
 		return (0);
 	}
 	if (is_builtin_cmd(phrase))
