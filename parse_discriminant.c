@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/13 18:54:00 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:24:26 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 	while (ptr->eof == FALSE && !is_discriminant(*ptr->end))
 	{
 		if (ptr->eof == FALSE && (*ptr->end == SINGLE_QUOTE || *ptr->end == DOUBLE_QUOTE))
+		{
 			add_quote(ptr, &flag);
+			move_end(ptr);
+		}
 		else
 			move_end(ptr);
 	}
