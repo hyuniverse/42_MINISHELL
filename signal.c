@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyun <sehyun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:44:32 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/05/30 12:14:53 by sehyun           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:31:58 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	set_signal(int signo, void *handler)
 	act.sa_handler = handler;
 	sigaction(signo, &act, NULL);
 }
-
 
 void	echo_ctrl(void)
 {
@@ -77,11 +76,17 @@ void	set_hd_signal(void)
 	set_signal(SIGINT, &catch_int_hd);
 }
 
-void	print_signal_exit_status(int signo)
+int	print_signal_exit_status(int signo)
 {
 	if (signo == 2)
+	{
 		printf("\n");
+		return (130);
+	}
 	else if (signo == 3)
+	{
 		printf("Quit: 3\n");
-	return ;
+		return (131);
+	}
+	return (128 + signo);
 }

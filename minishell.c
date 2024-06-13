@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 17:23:43 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 18:37:51 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,12 @@ int	wait_and_return(t_input *list, int last_code)
 	while (cnt < list->cnt)
 	{
 		if (wait(&status) == last_code)
-			code = WEXITSTATUS(status);
+		{
+			if (WIFSIGNALED(status))
+				code = WTERMSIG(status) + 128;
+			else
+				code = WEXITSTATUS(status);
+		}
 		if (WIFSIGNALED(status) && flag == 0)
 		{
 			print_signal_exit_status(WTERMSIG(status));
@@ -185,8 +190,9 @@ int	exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase)
 		exit(1);
 	set_wait_signal();
 	wait(&status);
-	if (WIFSIGNALED(status))
-		print_signal_exit_status(WTERMSIG(status));
 	set_interactive_signal();
-	return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (print_signal_exit_status(WTERMSIG(status)));
+	else
+		return (WEXITSTATUS(status));
 }
