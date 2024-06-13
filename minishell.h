@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/12 20:08:18 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:51:30 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_fd
 # define HD 3 // << heredoc
 # define OUT 4 // > output rd
 # define APD 5 // >> append rd
+# define ERROR 6
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
 
@@ -165,6 +166,7 @@ int		ms_pwd(char **argv);
 void	skip_redirection(t_phrase *phrase);
 void	redirection_to_filename(t_input *input, int *flag);
 int		is_output_error(t_token *token);
+int		is_input_error(t_token *token);
 char	*make_hd_file(t_token *token, int *flag);
 void	make_hd_content(t_token *token, int fd);
 int		open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
