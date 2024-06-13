@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:17:59 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:42 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:31:17 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static void	echo_no_options(char **argv)
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], 1);
-		ft_putstr_fd(" ", 1);
+		if (argv[i + 1] != NULL)
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	ft_putstr_fd("\n", 1);

@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:55:33 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/10 14:24:50 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 17:32:46 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int	change_dollar_value(t_envp **my_envp, t_phrase *phrase, char *s, int *i)
 	j = 1;
 	while (s[j])
 	{
-		if (is_space(s[j]) || s[j] == '$' || s[j] == '\'' || s[j] == '\"')
+		if (is_space(s[j]) || ft_isalnum(s[j]) == FALSE)
 			break ;
 		j++;
 	}
+	if (s[j] == '?')
+		j++;
 	*i += j;
 	if (j != 1)
 	{
@@ -94,7 +96,7 @@ char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 		}
 		else
 		{
-			if (str[i] == '$' && flag.s_quote == FALSE)
+			if (str[i] == '$' && flag.s_quote == FALSE && str[i + 1] != '"' && str[i + 1] != '\0')
 			{
 				if (cnt != 0)
 					add_token(phrase, ft_substr(str, i - cnt, cnt), &cnt);
