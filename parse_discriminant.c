@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/12 20:08:37 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:54:00 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 {
 	char	rd;
 	int		type;
+	t_quote_flag	flag;
 
+	init_quote_flag(&flag);
 	rd = *ptr->end;
 	if (ptr->len != 0)
 		add_token_back(list->tail, ptr);
@@ -93,7 +95,12 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 		move_end(ptr);
 	set_start(ptr);
 	while (ptr->eof == FALSE && !is_discriminant(*ptr->end))
-		move_end(ptr);
+	{
+		if (ptr->eof == FALSE && (*ptr->end == SINGLE_QUOTE || *ptr->end == DOUBLE_QUOTE))
+			add_quote(ptr, &flag);
+		else
+			move_end(ptr);
+	}
 	if (ptr->len > 0)
 		add_token_rd(list->tail, ptr, type);
 	else
