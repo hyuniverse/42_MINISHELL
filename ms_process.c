@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 17:28:01 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 22:52:17 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,18 @@ int	child_process_exe(t_phrase *phrase, char **envp)
 	char	**split_str;
 	char	*temp;
 	char	**s_cmd;
+	struct stat	buf;
 
 	s_cmd = token_to_arr(phrase);
+	if (!s_cmd)
+		return (0);
 	path = find_path(envp);
 	split_str = ft_split(path, ':');
 	if (ft_strncmp(phrase->head->data, "./", 2) == 0 || ft_strchr(s_cmd[0], '/') != 0)
 	{
+		stat(*s_cmd, &buf);
+		if (S_ISDIR(buf.st_mode))
+			return (print_dir_error(phrase->head->data));
 		if (access(s_cmd[0], F_OK) == 0 && execve(s_cmd[0], s_cmd, envp) == -1)
 			print_code_error(errno, s_cmd[0]);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:06:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 15:26:48 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 22:35:52 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ int	print_code_error(int code, char *cmd)
 		ft_putstr_fd("\n", 2);
 	}
 	exit(code);
+}
+
+int	print_dir_error(char *cmd)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": is a directory\n", 2);
+	exit(126);
 }
 
 int	print_code_error_builtin(int code, char *cmd)
