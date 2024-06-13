@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 14:12:57 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/13 17:28:01 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	set_process(t_envp **my_envp, t_input *input)
 	close(p.fd[1]);
 	while (i < input->cnt - 2)
 	{
+		phrase = phrase->next;
 		pipe(p.fd);
 		connect_process(my_envp, phrase, p);
 		close(p.temp_fd);
 		p.temp_fd = p.fd[0];
 		close(p.fd[1]);
 		i++;
-		phrase = phrase->next;
 	}
 	phrase = input->tail;
 	last_code = last_process(my_envp, phrase, p);
@@ -67,11 +67,13 @@ void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 			dup2(p.fd[1], 1);
 		close(p.fd[1]);
 		close(p.fd[0]);
-		envp = envp_list_to_arr(my_envp);
 		if (is_builtin_cmd(phrase) == TRUE)
 			exit(exe_only_builtin_cmd(my_envp, phrase));
 		else
+		{
+			envp = envp_list_to_arr(my_envp);
 			child_process_exe(phrase, envp);
+		}
 	}
 	else if (pid == -1)
 		exit(1);
@@ -111,11 +113,13 @@ void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 		close(p.fd[0]);
 		close(p.fd[1]);
 		close(p.temp_fd);
-		envp = envp_list_to_arr(my_envp);
 		if (is_builtin_cmd(phrase) == TRUE)
 			exit(exe_only_builtin_cmd(my_envp, phrase));
 		else
+		{
+			envp = envp_list_to_arr(my_envp);
 			child_process_exe(phrase, envp);
+		}
 	}
 	else if (pid == -1)
 		exit(1);
@@ -147,11 +151,13 @@ int	last_process(t_envp **my_envp, t_phrase *phrase, t_fd p)
 		if (infile_fd == 0)
 			dup2(p.temp_fd, 0);
 		close(p.temp_fd);
-		envp = envp_list_to_arr(my_envp);
 		if (is_builtin_cmd(phrase) == TRUE)
 			exit(exe_only_builtin_cmd(my_envp, phrase));
 		else
+		{
+			envp = envp_list_to_arr(my_envp);
 			return (child_process_exe(phrase, envp));
+		}
 	}
 	else if (pid == -1)
 		exit(1);
