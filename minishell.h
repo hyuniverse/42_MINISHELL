@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 18:29:37 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:34:16 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <fcntl.h>
 # include "./Libft/get_next_line_bonus.h"
 # include "./Libft/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
 
 typedef struct s_envp
 {
@@ -135,6 +137,7 @@ int		print_code_error(int code, char *cmd);
 int		print_builtin_error(char *cmd, char *str);
 int		print_code_error_builtin(int code, char *cmd);
 void	print_syntax_error(char	*ptr);
+int		print_dir_error(char *cmd);
 
 /*-----ms_echo.c-----*/
 int		ms_echo(char **argv);

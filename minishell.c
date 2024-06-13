@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 19:56:36 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:34:25 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,17 +150,23 @@ char	**token_to_arr(t_phrase *phrase)
 	token = phrase->head;
 	while (token != NULL)
 	{
-		cnt++;
+		if (*token->data)
+			cnt++;
 		token = token->next;
 	}
+	if (cnt == 0)
+		exit(0);
 	result = (char **)malloc(sizeof(char *) * (cnt + 1));
 	if (result == NULL)
 		exit(1);
 	token = phrase->head;
 	while (i < cnt)
 	{
-		result[i] = ft_strdup(token->data);
-		i++;
+		if (*token->data)
+		{
+			result[i] = ft_strdup(token->data);
+			i++;
+		}
 		token = token->next;
 	}
 	result[i] = NULL;
