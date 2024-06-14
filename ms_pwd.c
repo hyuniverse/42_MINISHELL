@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:44:10 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:19:34 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/14 17:20:52 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ms_pwd(char **argv)
 			ft_putstr_fd("minishell: pwd can't have options\n", 2);
 			return (1);
 		}
+		ft_putendl_fd(wd, 1);
 	}
 	else
 		ft_putendl_fd(wd, 1);
