@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:06:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 22:35:52 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:44:22 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	print_nofile_error(int code, char *cmd)
+{
+	if (code == 127)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	exit(code);
+}
 
 int	print_code_error(int code, char *cmd)
 {
@@ -24,7 +35,7 @@ int	print_code_error(int code, char *cmd)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": permission denied\n", 2);
+		ft_putstr_fd(": Permission denied\n", 2);
 	}
 	else
 	{

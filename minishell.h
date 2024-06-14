@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 22:34:16 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:44:20 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char	*cmd_strjoin(char const *s1, char const *s2, char *s3);
 char	*remove_backslash(char *str);
 
 /*-----error.c-----*/
+int		print_nofile_error(int code, char *cmd);
 int		print_code_error(int code, char *cmd);
 int		print_builtin_error(char *cmd, char *str);
 int		print_code_error_builtin(int code, char *cmd);

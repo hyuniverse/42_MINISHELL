@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 22:52:17 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:49:14 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,13 +186,20 @@ int	child_process_exe(t_phrase *phrase, char **envp)
 		stat(*s_cmd, &buf);
 		if (S_ISDIR(buf.st_mode))
 			return (print_dir_error(phrase->head->data));
-		if (access(s_cmd[0], F_OK) == 0 && execve(s_cmd[0], s_cmd, envp) == -1)
-			print_code_error(errno, s_cmd[0]);
+		if (access(s_cmd[0], F_OK) != 0)
+			print_nofile_error(127, s_cmd[0]);
+		else if (access(s_cmd[0], F_OK) == 0 && execve(s_cmd[0], s_cmd, envp) == -1)
+			print_code_error(126, s_cmd[0]);
 	}
 	else
 	{
 		while (*split_str)
 		{
+			if (*split_str[0] == '.')
+			{
+				split_str++;
+				continue ;
+			}
 			temp = cmd_strjoin(*split_str, "/", s_cmd[0]);
 			if (access(temp, X_OK) == 0 && execve(temp, s_cmd, envp) == -1)
 				print_code_error(126, temp);
