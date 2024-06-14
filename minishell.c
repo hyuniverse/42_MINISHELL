@@ -65,7 +65,10 @@ void	exec_minishell(t_envp **my_envp)
 			change_dollar_all_tokens(list, my_envp);
 			redirection_to_filename(list, &flag);
 			if (flag == TRUE)
+			{
 				flag = FALSE;
+				process_code = 1;
+			}
 			else if (list->cnt == 1)
 				process_code = exe_one_command(my_envp, list->head);
 			else
