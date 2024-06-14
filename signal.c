@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:44:32 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/13 18:31:58 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:19:21 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	catch_int(void)
 {
 	printf("\n");
+	printf("minishell $ \033[s\b\b\b\b\b\b\b\b\b\b\b\b");
 	rl_on_new_line();
 	rl_replace_line("", 0); // undolist 삭제..?유지..?
 	rl_redisplay();

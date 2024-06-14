@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 22:34:25 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:29:48 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	exec_minishell(t_envp **my_envp)
 			change_dollar_all_tokens(list, my_envp);
 			redirection_to_filename(list, &flag);
 			if (flag == TRUE)
+			{
 				flag = FALSE;
+				process_code = 1;
+			}
 			else if (list->cnt == 1)
 				process_code = exe_one_command(my_envp, list->head);
 			else
