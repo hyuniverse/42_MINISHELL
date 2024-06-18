@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 20:24:38 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:34:28 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,8 @@ void	make_hd_content(t_token *token, int fd)
 		set_hd_signal();
 		while (1)
 		{
-			buffer = readline("> \033[s");
+			printf("> \033[s\b\b");
+			buffer = readline("> ");
 			if (buffer == NULL)
 			{
 				printf("\033[1u\033[1B\033[1A");
