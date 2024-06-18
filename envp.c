@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/10 14:10:23 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:22:41 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ char	**envp_list_to_arr(t_envp **my_envp)
 	char	**result;
 	t_envp	*n;
 	t_envp	*temp;
-
+	int		i;
+	
+	i = 0;
 	result = (char **)malloc(sizeof(char *) * (envp_size(my_envp) + 1));
 	if (result == NULL)
 		exit(1);
@@ -83,18 +85,18 @@ char	**envp_list_to_arr(t_envp **my_envp)
 	while (n)
 	{	
 		if (n->value != NULL)
-			*result = cmd_strjoin(n->key, "=", n->value);
+			result[i] = cmd_strjoin(n->key, "=", n->value);
 		else
-			*result = ft_strdup(n->key);
+			result[i] = ft_strdup(n->key);
 		temp = n;
 		n = n->next;
 		if (temp->value != NULL)
 			free(temp->value);
 		free(temp->key);
 		free(temp);
-		result++;
+		i++;
 	}
-	*result = NULL;
+	result[i] = NULL;
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:05:48 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:36 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:47:06 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ char	*find_path(char **env)
 		}
 		env++;
 	}
-	if (path == NULL)
-		path = "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
 	return (path);
 }
 
