@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 09:22:21 by siychoi           #+#    #+#             */
-/*   Updated: 2024/04/11 20:37:24 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:53:59 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	split_count(char const *s, char c)
 
 	i = 0;
 	cnt = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] != c)
@@ -83,6 +85,11 @@ char	**ft_split(char const *s, char c)
 	result = (char **)malloc(sizeof(char *) * (arr_cnt + 1));
 	if (result == NULL)
 		return (NULL);
+	if (s == NULL)
+	{
+		result[0] = NULL;
+		return (result);
+	}
 	cnt = make_result(s, c, result, 0);
 	if (cnt > 0)
 	{
