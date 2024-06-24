@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:05:11 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/13 20:24:26 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:10:29 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ int	is_discriminant(char ch)
 	return (TRUE);
 }
 
-void	add_quote(t_parsing_ptr *ptr, t_quote_flag *flag)
+void	add_quote(t_input *list, t_parsing_ptr *ptr, t_quote_flag *flag)
 {
 	if (*ptr->end == DOUBLE_QUOTE && flag->s_quote == FALSE)
 		change_stat(&flag->d_quote);
 	else if (*ptr->end == SINGLE_QUOTE && flag->d_quote == FALSE)
 		change_stat(&flag->s_quote);
-	while ((flag->s_quote == TRUE || flag->d_quote == TRUE) \
-	&& ptr->eof == FALSE)
+	while ((flag->s_quote == TRUE || flag->d_quote == TRUE))
 	{
 		move_end(ptr);
+		if (ptr->eof == TRUE)
+		{
+			list->valid = FALSE;
+			ft_putstr_fd("minishell: unclosed quotes\n", 2);
+			break ;
+		}
 		if (*ptr->end == DOUBLE_QUOTE && flag->s_quote == FALSE)
 			change_stat(&flag->d_quote);
 		else if (*ptr->end == SINGLE_QUOTE && flag->d_quote == FALSE)
@@ -98,7 +103,7 @@ void	add_redirection(t_input *list, t_parsing_ptr *ptr)
 	{
 		if (ptr->eof == FALSE && (*ptr->end == SINGLE_QUOTE || *ptr->end == DOUBLE_QUOTE))
 		{
-			add_quote(ptr, &flag);
+			add_quote(list, ptr, &flag);
 			move_end(ptr);
 		}
 		else
