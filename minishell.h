@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/14 10:44:20 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:39:49 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ int		move_end(t_parsing_ptr *ptr);
 int		is_space(char ch);
 int		is_pipe(t_input *list, char *str, char start);
 int		is_discriminant(char ch);
-void	add_quote(t_parsing_ptr *ptr, t_quote_flag *flag);
+void	add_quote(t_input *list, t_parsing_ptr *ptr, t_quote_flag *flag);
 void	add_redirection(t_input *list, t_parsing_ptr *ptr);
 
 /*-----parse_essentials.c-----*/
