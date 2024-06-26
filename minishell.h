@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 14:58:40 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:34:27 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ typedef struct s_parsing_ptr
 	int			eof;
 }	t_parsing_ptr;
 
+typedef struct s_expansion
+{
+	int		i;
+	int		cnt;
+	char 	*str;
+}	t_expansion;
+
 /*-----envp.c-----*/
 int			envp_size(t_envp **my_envp);
 void		envp_add_back(t_envp **my_envp, t_envp *new);
@@ -125,6 +132,12 @@ char		*find_key(t_envp **my_envp, char *str);
 
 /*-----ms_dollar.c-----*/
 void		change_dollar_all_tokens(t_input *input, t_envp **my_envp);
+
+/*-----ms_dollar_utils.c-----*/
+char		*phrase_to_str(t_phrase *phrase);
+void		expansion_proc(t_envp **envp, t_phrase *phr, t_expansion *e, int flag);
+void		quote_process(t_phrase *phrase, t_expansion *e, int *flag);
+void		init_expansion_var(t_expansion *exp, t_token *token);
 
 /*-----command_parsing.c-----*/
 char		*find_path(char **env);
