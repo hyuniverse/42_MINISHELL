@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:26:47 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/24 14:40:22 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:51:40 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ t_input	*lexer(char *str)
 			move_start(&ptr);
 		if (ptr.eof == TRUE)
 			break ;
-		if (ptr.eof == FALSE && (*ptr.end == SINGLE_QUOTE || *ptr.end == DOUBLE_QUOTE))
+		if (is_quote(&ptr))
 			add_quote(list, &ptr, &flag);
 		if (ptr.eof == FALSE && (*ptr.end == '<' || *ptr.end == '>'))
 			add_redirection(list, &ptr);
-		else if (ptr.eof == FALSE && *ptr.end == '|' && is_pipe(list, ptr.end + 1, *ptr.start))
+		else if (ptr.eof == FALSE && *ptr.end == '|' && \
+		is_pipe(list, ptr.end + 1, *ptr.start))
 			add_phrase(list, &ptr);
 		else if (ptr.eof == FALSE)
 			move_end(&ptr);
