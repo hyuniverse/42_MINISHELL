@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+         #
+#    By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:23:47 by siychoi           #+#    #+#              #
-#    Updated: 2024/06/13 11:20:56 by siychoi          ###   ########.fr        #
+#    Updated: 2024/06/26 14:42:11 by sehyupar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC			= minishell command_split command_parsing envp error ms_builtin_cmd \
 			  ms_dollar ms_cd ms_echo ms_env ms_exit ms_export ms_process ms_pwd ms_redirection ms_unset \
 			  utils parse_discriminant parse_lexer parse_pointer \
 			  parse_struct_input parse_struct_phrase parse_struct_token \
-			  parse_essentials signal
+			  parse_essentials signal signal_handler parse_add_redirection
 SRCS		= $(addsuffix .c, $(SRC))
 OBJS		= $(SRCS:.c=.o)
 
