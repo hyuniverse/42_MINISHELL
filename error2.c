@@ -6,11 +6,22 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:34:58 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 16:29:05 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:49:58 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	print_nofile_error(int code, char *cmd)
+{
+	if (code == 127)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	exit(code);
+}
 
 void	print_syntax_error(char	*ptr)
 {
