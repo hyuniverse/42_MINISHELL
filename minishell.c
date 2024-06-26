@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/18 17:23:02 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:10:23 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	exec_minishell(t_envp **my_envp)
 				process_code = exe_one_command(my_envp, list->head);
 			else
 				process_code = set_process(my_envp, list);
+			change_value(my_envp, "?", ft_itoa(process_code));
 			free(buffer);
 			free_input(list);
-			change_value(my_envp, "?", ft_itoa(process_code));
 		}
 	}
 }
@@ -99,7 +99,7 @@ int	exe_one_command(t_envp **my_envp, t_phrase *phrase)
 	{
 		fd[2] = dup(0);
 		fd[3] = dup(1);
-		if (open_in_and_out_fd(phrase, &fd[0], &fd[1]) != TRUE)
+		if (open_in_and_out_fd(phrase, fd) != TRUE)
 			return (errno);
 		return_code = exe_only_builtin_cmd(my_envp, phrase);
 		if (phrase->infile_type == 3)
@@ -181,18 +181,17 @@ int	exe_only_builtout_cmd(t_envp **my_envp, t_phrase *phrase)
 	pid_t	pid;
 	char	**envp;
 	int		status;
-	int		infile_fd;
-	int		outfile_fd;
+	int		io_fd[2];
 
 	pid = fork();
 	if (pid == 0)
 	{
 		set_child_signal();
-		infile_fd = 0;
-		outfile_fd = 1;
-		if (open_in_and_out_fd(phrase, &infile_fd, &outfile_fd) != TRUE)
+		io_fd[0] = 0;
+		io_fd[1] = 1;
+		if (open_in_and_out_fd(phrase, io_fd) != TRUE)
 			exit(errno);
-		envp = envp_list_to_arr(my_envp);
+		envp = envp_list_to_arr(*my_envp);
 		return (child_process_exe(phrase, envp));
 	}
 	else if (pid == -1)
