@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:55:33 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 16:32:12 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:33:08 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 		else if (e.str[e.i] == SINGLE_QUOTE && flag.d_quote == FALSE)
 			quote_process(phrase, &e, &flag.s_quote);
 		else
-			expansion_proc(my_envp, phrase, &e, flag.s_quote);
+			expansion(my_envp, phrase, &e, flag.s_quote);
 	}
 	if (e.cnt != 0)
 		add_token(phrase, ft_substr(e.str, e.i - e.cnt, e.cnt), &e.cnt);

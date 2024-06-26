@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 17:55:48 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 18:31:55 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void		change_dollar_all_tokens(t_input *input, t_envp **my_envp);
 
 /*-----ms_dollar_utils.c-----*/
 char		*phrase_to_str(t_phrase *phrase);
-void		expansion_proc(t_envp **envp, t_phrase *phr, t_expansion *e, int flag);
+void		expansion(t_envp **envp, t_phrase *phr, t_expansion *e, int flag);
 void		quote_process(t_phrase *phrase, t_expansion *e, int *flag);
 void		init_expansion_var(t_expansion *exp, t_token *token);
 

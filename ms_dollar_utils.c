@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:27:29 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/26 16:34:36 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:32:29 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*phrase_to_str(t_phrase *phrase)
 	return (str);
 }
 
-void	expansion_proc(t_envp **envp, t_phrase *phr, t_expansion *e, int flag)
+void	expansion(t_envp **envp, t_phrase *phr, t_expansion *e, int flag)
 {
 	if (e->str[e->i] == '$' && flag == FALSE && \
 	e->str[e->i + 1] != '"' && e->str[e->i + 1] != '\0')
