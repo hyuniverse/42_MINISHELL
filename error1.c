@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   error1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:06:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/14 10:44:22 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:13:33 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,6 @@ int	print_code_error(int code, char *cmd)
 	exit(code);
 }
 
-int	print_dir_error(char *cmd)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": is a directory\n", 2);
-	exit(126);
-}
-
 int	print_code_error_builtin(int code, char *cmd)
 {
 	if (code == 127)
@@ -91,20 +83,14 @@ int	print_builtin_error(char *cmd, char *str)
 	return (1);
 }
 
-void	print_syntax_error(char	*ptr)
+void	check_process_error(t_phrase *phrase)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-	if (!*ptr)
-		ft_putstr_fd("newline", 2);
-	else if (ft_strncmp(ptr, "|", 1) == 0)
-		ft_putstr_fd("|", 2);
-	else if (ft_strncmp(ptr, ">>", 2) == 0)
-		ft_putstr_fd(">>", 2);
-	else if (ft_strncmp(ptr, ">", 1) == 0)
-		ft_putstr_fd(">", 2);
-	else if (ft_strncmp(ptr, "<<", 2) == 0)
-		ft_putstr_fd("<<", 2);
-	else if (ft_strncmp(ptr, "<", 1) == 0)
-		ft_putstr_fd("<", 2);
-	ft_putstr_fd("'\n", 2);
+	if (phrase->outfile_type == 6 || phrase->infile_type == 6)
+		exit(1);
+	if (phrase->head == NULL)
+	{
+		if (phrase->infile_type == 3)
+			unlink(phrase->infile_name);
+		exit(0);
+	}
 }

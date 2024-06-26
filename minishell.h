@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/14 10:44:20 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:30:52 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_parsing_ptr
 int		envp_size(t_envp **my_envp);
 void	envp_add_back(t_envp **my_envp, t_envp *new);
 void	envp_arr_to_list(char **envp, t_envp **n);
-char	**envp_list_to_arr(t_envp **my_envp);
+char	**envp_list_to_arr(t_envp *my_envp);
 void	change_value(t_envp **my_envp, char *key, char *value);
 
 /*-----minishell.c-----*/
@@ -132,13 +132,18 @@ char	**cmd_split(char *str);
 char	*cmd_strjoin(char const *s1, char const *s2, char *s3);
 char	*remove_backslash(char *str);
 
-/*-----error.c-----*/
+/*-----error1.c-----*/
 int		print_nofile_error(int code, char *cmd);
 int		print_code_error(int code, char *cmd);
 int		print_builtin_error(char *cmd, char *str);
 int		print_code_error_builtin(int code, char *cmd);
+void	check_process_error(t_phrase *phrase);
+
+/*-----error2.c-----*/
 void	print_syntax_error(char	*ptr);
 int		print_dir_error(char *cmd);
+int		is_input_error(t_token *token);
+int		is_output_error(t_token *token);
 
 /*-----ms_echo.c-----*/
 int		ms_echo(char **argv);
@@ -156,12 +161,19 @@ int		ms_export(t_envp **my_envp, char **argv);
 void	add_key_and_value(t_envp **my_envp, char *str, int idx);
 void	print_envp(t_envp **my_envp);
 
-/*-----ms_process.c-----*/
-int		set_process(t_envp **my_envp, t_input *list);
+/*-----ms_process1.c-----*/
 void	first_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
 void	connect_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
 int		last_process(t_envp **my_envp, t_phrase *phrase, t_fd p);
 int		child_process_exe(t_phrase *phrase, char **envp);
+void	child_process_exe2(char **split_str, char **s_cmd, char **envp);
+
+/*-----ms_process2.c-----*/
+int		set_process(t_envp **my_envp, t_input *list);
+int		make_pid(pid_t *pid);
+void	close_all_pipe(t_fd p);
+void	dup_io_fd(int *io_fd, t_fd p);
+void	dup_and_close_last_process(int *io_fd, t_fd p);
 
 /*-----ms_pwd.c-----*/
 int		ms_pwd(char **argv);
@@ -173,13 +185,15 @@ int		is_output_error(t_token *token);
 int		is_input_error(t_token *token);
 char	*make_hd_file(t_token *token, int *flag);
 void	make_hd_content(t_token *token, int fd);
-int		open_in_and_out_fd(t_phrase *phrase, int *infile_fd, int *outfile_fd);
+int		open_in_and_out_fd(t_phrase *phrase, int *io_fd);
 
 /*-----ms_unset.c-----*/
 int		ms_unset(t_envp **my_envp, char **argv);
 
 /*-----utils.c-----*/
 int		ms_strncmp(const char *s1, const char *s2, size_t n);
+void	close_all_pipe(t_fd p);
+void	dup_io_fd(int *io_fd, t_fd p);
 
 /*-----parse_lexer.c-----*/
 void	change_stat(int *flag);

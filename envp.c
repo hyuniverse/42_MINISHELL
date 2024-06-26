@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/18 17:22:41 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:05:51 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,24 @@ void	envp_arr_to_list(char **envp, t_envp **my_envp)
 	add_key_and_value(my_envp, "?=0", 1);
 }
 
-char	**envp_list_to_arr(t_envp **my_envp)
+char	**envp_list_to_arr(t_envp *my_envp)
 {
 	char	**result;
-	t_envp	*n;
 	t_envp	*temp;
 	int		i;
-	
+
 	i = 0;
-	result = (char **)malloc(sizeof(char *) * (envp_size(my_envp) + 1));
+	result = (char **)malloc(sizeof(char *) * (envp_size(&my_envp) + 1));
 	if (result == NULL)
 		exit(1);
-	n = *my_envp;
-	while (n)
+	while (my_envp)
 	{	
-		if (n->value != NULL)
-			result[i] = cmd_strjoin(n->key, "=", n->value);
+		if (my_envp->value != NULL)
+			result[i] = cmd_strjoin(my_envp->key, "=", my_envp->value);
 		else
-			result[i] = ft_strdup(n->key);
-		temp = n;
-		n = n->next;
+			result[i] = ft_strdup(my_envp->key);
+		temp = my_envp;
+		my_envp = my_envp->next;
 		if (temp->value != NULL)
 			free(temp->value);
 		free(temp->key);
