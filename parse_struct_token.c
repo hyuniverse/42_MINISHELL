@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:01:55 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/13 20:48:31 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:37:38 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_token	*get_token(int type, t_parsing_ptr *ptr)
 	if (!token)
 		return (0);
 	token->data = my_strldup(ptr);
-	//printf("token: %s\n", token->data);
 	token->next = 0;
 	token->type = type;
 	set_start(ptr);

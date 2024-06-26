@@ -6,26 +6,11 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:44:32 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/14 15:19:21 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:31:40 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	catch_int(void)
-{
-	printf("\n");
-	printf("minishell $ \033[s\b\b\b\b\b\b\b\b\b\b\b\b");
-	rl_on_new_line();
-	rl_replace_line("", 0); // undolist 삭제..?유지..?
-	rl_redisplay();
-}
-
-void	catch_int_hd(void)
-{
-	printf("\n");
-	exit(2);
-}
 
 void	set_signal(int signo, void *handler)
 {
@@ -33,24 +18,6 @@ void	set_signal(int signo, void *handler)
 
 	act.sa_handler = handler;
 	sigaction(signo, &act, NULL);
-}
-
-void	echo_ctrl(void)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
-void	display_ctrl(void)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag |= ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 void	set_interactive_signal(void)
@@ -75,19 +42,4 @@ void	set_child_signal(void)
 void	set_hd_signal(void)
 {
 	set_signal(SIGINT, &catch_int_hd);
-}
-
-int	print_signal_exit_status(int signo)
-{
-	if (signo == 2)
-	{
-		printf("\n");
-		return (130);
-	}
-	else if (signo == 3)
-	{
-		printf("Quit: 3\n");
-		return (131);
-	}
-	return (128 + signo);
 }

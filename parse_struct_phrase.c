@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_struct_phrase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:30 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/07 15:51:36 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/26 14:37:13 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,3 @@ void	add_phrase(t_input *list, t_parsing_ptr *ptr)
 		set_start(ptr);
 	}
 }
-
-/*
-void	delete_front(t_input *list)
-{
-	t_phrase	*phrase;
-
-	phrase = list->head;
-	list->head = list->head->next;
-	phrase->next = 0;
-	phrase->type = 0;
-	list->cnt--;
-	free(phrase);
-}
-*/
