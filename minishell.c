@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 16:28:49 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 18:52:09 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	check()
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_envp	*my_envp;
+
+	atexit(check);
 	if (argc != 1 || argv[0] == NULL)
 		exit(1);
 	my_envp = NULL;
