@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:44:10 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:51:53 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:45:06 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int	ms_pwd(char **argv)
 	else
 		ft_putendl_fd(wd, 1);
 	free_2d_array(argv);
+	free(wd);
 	return (0);
 }
