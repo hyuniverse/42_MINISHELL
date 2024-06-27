@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:52:48 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:51:31 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:18:19 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// error_code는 '$?' 명령어로 확인 가능
-// 범위 0~255 (exit(300) 했을 경우 overflow되어 44가 반환)
 int	ms_exit(char **argv)
 {
 	char		exit_code;

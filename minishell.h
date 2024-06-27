@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:48:50 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:13:46 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,16 @@ typedef struct s_expansion
 	char	*str;
 }	t_expansion;
 
-/*-----envp.c-----*/
+/*-----envp1.c-----*/
 int			envp_size(t_envp **my_envp);
 void		envp_add_back(t_envp **my_envp, t_envp *new);
 void		envp_arr_to_list(char **envp, t_envp **n);
 char		**envp_list_to_arr(t_envp *my_envp);
+
+/*-----envp2.c-----*/
 void		change_value(t_envp **my_envp, char *key, char *value);
+char		*find_key(t_envp **my_envp, char *str);
+char		*find_value(t_envp **my_envp, char *str);
 
 /*-----ms_exe.c-----*/
 int			make_list(t_input *list, t_envp**my_envp, char *buffer, int flag);
@@ -127,8 +131,6 @@ int			exe_only_builtin_cmd(t_envp **my_envp, t_phrase *phrase);
 
 /*-----ms_cd.c-----*/
 int			ms_cd(t_envp **my_envp, char **argv);
-char		*find_value(t_envp **my_envp, char *str);
-char		*find_key(t_envp **my_envp, char *str);
 
 /*-----ms_dollar.c-----*/
 void		change_dollar_all_tokens(t_input *input, t_envp **my_envp);
@@ -269,8 +271,6 @@ void		catch_int_hd(void);
 void		echo_ctrl(void);
 void		display_ctrl(void);
 
-
-
-void	free_2d_array(char **arr);
+void		free_2d_array(char **arr);
 
 #endif

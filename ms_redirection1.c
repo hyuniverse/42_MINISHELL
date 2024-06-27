@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 17:55:15 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 20:59:12 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ char	*make_hd_file(t_token *token, int *flag)
 {
 	int		fd;
 	char	*path;
+	char	*temp;
 	int		status;
 
 	path = ft_substr("/Users/siychoi/temp/.heredoc1", 0, 30);
 	while (1)
 	{
 		if (access(path, F_OK) == 0)
+		{
+			temp = path;
 			path = ft_strjoin(path, "1");
+			free(temp);
+		}
 		else
 			break ;
 	}
@@ -61,16 +66,22 @@ void	make_hd_content(t_token *token, int fd)
 			if (buffer == NULL)
 			{
 				printf("\033[1u\033[1B\033[1A");
+				free(token->data);
 				exit(1);
 			}
 			if (ms_strncmp(buffer, token->data, ft_strlen(buffer)) == 0)
+			{
+				free(buffer);
 				break ;
+			}
 			ft_putendl_fd(buffer, fd);
 			free(buffer);
 		}
 		close(fd);
 		exit(1);
 	}
+	else if (pid == -1)
+		exit(1);
 	set_signal(SIGINT, SIG_IGN);
 }
 

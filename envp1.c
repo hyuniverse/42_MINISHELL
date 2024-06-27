@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.c                                             :+:      :+:    :+:   */
+/*   envp1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 16:05:51 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 20:15:37 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,4 @@ char	**envp_list_to_arr(t_envp *my_envp)
 	}
 	result[i] = NULL;
 	return (result);
-}
-
-void	change_value(t_envp **my_envp, char *key, char *value)
-{
-	int		lst_size;
-	int		i;
-	t_envp	*n;
-
-	i = 0;
-	lst_size = envp_size(my_envp);
-	n = *my_envp;
-	while (i < lst_size)
-	{
-		if (ms_strncmp(n->key, key, ft_strlen(n->key)) == 0)
-		{
-			if (n->value != NULL)
-				free(n->value);
-			n->value = value;
-			n->value_len = ft_strlen(n->value);
-			break ;
-		}
-		i++;
-		n = n->next;
-	}
 }

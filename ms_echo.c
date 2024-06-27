@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:17:59 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:48:27 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:27:58 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ms_echo(char **argv)
 	if (argv[1] == NULL)
 	{
 		ft_putstr_fd("\n", 1);
+		free_2d_array(argv);
 		return (0);
 	}
 	while (argv[i])

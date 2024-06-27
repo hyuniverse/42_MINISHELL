@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 16:55:42 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 20:08:04 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	print_cd_error(char *str, int error_type);
 static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd);
+void		ms_cd2(t_envp **my_envp, char *argv[], char *pwd, int *status);
 
 int	ms_cd(t_envp **my_envp, char **argv)
 {
@@ -33,10 +34,17 @@ int	ms_cd(t_envp **my_envp, char **argv)
 		free_2d_array(argv);
 		return (print_cd_error(NULL, 1));
 	}
+	ms_cd2(my_envp, argv, pwd, &status);
+	free_2d_array(argv);
+	return (status);
+}
+
+void	ms_cd2(t_envp **my_envp, char *argv[], char *pwd, int *status)
+{
 	if (chdir(argv[1]) == -1)
 	{
 		print_code_error_builtin(errno, argv[0]);
-		status = 1;
+		*status = 1;
 		free(pwd);
 	}
 	else
@@ -44,8 +52,6 @@ int	ms_cd(t_envp **my_envp, char **argv)
 		change_value(my_envp, "OLDPWD", pwd);
 		change_value(my_envp, "PWD", getcwd(NULL, 0));
 	}
-	free_2d_array(argv);
-	return (status);
 }
 
 static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd)
@@ -77,52 +83,4 @@ static int	print_cd_error(char *str, int error_type)
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	return (1);
-}
-
-char	*find_value(t_envp **my_envp, char *str)
-{
-	int		lst_size;
-	int		i;
-	char	*value;
-	t_envp	*n;
-
-	i = 0;
-	lst_size = envp_size(my_envp);
-	value = NULL;
-	n = *my_envp;
-	while (i < lst_size)
-	{
-		if (ms_strncmp(n->key, str, ft_strlen(n->key)) == 0)
-		{
-			value = n->value;
-			break ;
-		}
-		i++;
-		n = n->next;
-	}
-	return (value);
-}
-
-char	*find_key(t_envp **my_envp, char *str)
-{
-	int		lst_size;
-	int		i;
-	char	*key;
-	t_envp	*n;
-
-	i = 0;
-	lst_size = envp_size(my_envp);
-	key = NULL;
-	n = *my_envp;
-	while (i < lst_size)
-	{
-		if (ms_strncmp(n->key, str, ft_strlen(n->key)) == 0)
-		{
-			key = n->key;
-			break ;
-		}
-		i++;
-		n = n->next;
-	}
-	return (key);
 }

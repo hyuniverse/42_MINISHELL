@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:17:42 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:03:54 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:32:02 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	exec_minishell(t_envp **my_envp)
 			list = lexer(buffer);
 			make_list(list, my_envp, buffer, flag);
 		}
+		else
+			free(buffer);
 	}
 }
 
