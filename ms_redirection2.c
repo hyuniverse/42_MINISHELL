@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:31:03 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 16:47:11 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 22:18:18 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,26 @@ void	redirection_to_filename(t_input *input, int *flag)
 			if (token->type == IN || token->type == HD)
 			{
 				if (infile_to_filename(phrase, token, flag) == FALSE)
+				{
+					if (phrase->infile_name != NULL)
+						free(phrase->infile_name);
 					break ;
+				}
 			}
 			else if (token->type == OUT || token->type == APD)
 			{
 				if (outfile_to_filename(phrase, token) == FALSE)
+				{
+					if (phrase->outfile_name != NULL)
+						free(phrase->outfile_name);
 					break ;
+				}
 			}
 			token = token->next;
 		}
+		printf("1 data = %s\n", phrase->head->data);
 		skip_redirection(phrase);
+		//printf("2 data = %s\n", phrase->head->data);
 		phrase = phrase->next;
 	}
 }

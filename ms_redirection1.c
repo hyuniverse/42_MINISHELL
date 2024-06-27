@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 20:59:12 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 22:06:25 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 void	skip_redirection(t_phrase *phrase)
 {
 	t_token	*token;
+	t_token	*next;
 
 	token = phrase->head;
 	while (token != NULL && token->type != 1)
-		token = token->next;
+	{
+		next = token->next;
+		free(token->data);
+		free(token);
+		token = next;
+	}
 	phrase->head = token;
 }
 

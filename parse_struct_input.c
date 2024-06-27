@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_struct_input.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:28 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/27 14:12:47 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 21:27:52 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void	free_token(t_token *token)
 void	free_phrase(t_phrase *phrase)
 {
 	if (phrase->head)
+	{
+		if (phrase->infile_name != NULL)
+			free(phrase->infile_name);
+		if (phrase->outfile_name != NULL)
+			free(phrase->outfile_name);
 		free_token(phrase->head);
+	}
 	if (phrase->next)
 		free_phrase(phrase->next);
 	free(phrase);

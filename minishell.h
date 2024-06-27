@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 20:13:46 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 21:55:44 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_fd
 }	t_fd;
 
 # define CNT 1
-# define IN 2 // < input rd
-# define HD 3 // << heredoc
-# define OUT 4 // > output rd
-# define APD 5 // >> append rd
+# define IN 2 
+# define HD 3
+# define OUT 4
+# define APD 5
 # define ERROR 6
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
