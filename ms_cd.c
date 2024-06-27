@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:52:45 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:55:42 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ int	ms_cd(t_envp **my_envp, char **argv)
 		return (ms_cd_no_options(my_envp, pwd));
 	}
 	if (argv[1][0] == '-' && argv[1][1] != '\0')
+	{
+		free(pwd);
+		free_2d_array(argv);
 		return (print_cd_error(NULL, 1));
+	}
 	if (chdir(argv[1]) == -1)
 	{
 		print_code_error_builtin(errno, argv[0]);
 		status = 1;
+		free(pwd);
 	}
 	else
 	{
@@ -48,6 +53,7 @@ static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd)
 	if (chdir(find_value(my_envp, "HOME")) == -1)
 	{
 		ft_putstr_fd("minishell : cd: HOME not set\n", 2);
+		free(old_pwd);
 		return (1);
 	}
 	else
