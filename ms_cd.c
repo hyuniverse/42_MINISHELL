@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 16:55:42 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 19:35:06 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*find_value(t_envp **my_envp, char *str)
 	{
 		if (ms_strncmp(n->key, str, ft_strlen(n->key)) == 0)
 		{
-			value = n->value;
+			value = ft_strdup(n->value);
 			break ;
 		}
 		i++;
