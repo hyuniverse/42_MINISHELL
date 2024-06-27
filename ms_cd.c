@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/10 14:19:19 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:52:45 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	ms_cd(t_envp **my_envp, char **argv)
 	status = 0;
 	pwd = getcwd(NULL, 0);
 	if (argv[1] == NULL || (argv[1][0] == '~' && argv[1][1] == '\0'))
+	{
+		free_2d_array(argv);
 		return (ms_cd_no_options(my_envp, pwd));
+	}
 	if (argv[1][0] == '-' && argv[1][1] != '\0')
 		return (print_cd_error(NULL, 1));
 	if (chdir(argv[1]) == -1)
@@ -36,6 +39,7 @@ int	ms_cd(t_envp **my_envp, char **argv)
 		change_value(my_envp, "OLDPWD", pwd);
 		change_value(my_envp, "PWD", getcwd(NULL, 0));
 	}
+	free_2d_array(argv);
 	return (status);
 }
 

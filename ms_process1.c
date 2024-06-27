@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_process1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 17:40:25 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:59:15 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ int	child_process_exe(t_phrase *phrase, char **envp)
 	{
 		stat(*cmd, &buf);
 		if (S_ISDIR(buf.st_mode))
+		{
+			free_2d_array(cmd);
 			return (print_dir_error(phrase->head->data));
+		}
 		if (access(cmd[0], F_OK) != 0)
 			print_nofile_error(127, cmd[0]);
 		else if (access(cmd[0], F_OK) == 0 && execve(cmd[0], cmd, envp) == -1)
@@ -122,6 +125,7 @@ int	child_process_exe(t_phrase *phrase, char **envp)
 	}
 	else
 		child_process_exe2(split_str, cmd, envp);
+	free_2d_array(cmd);
 	return (print_code_error(127, phrase->head->data));
 }
 

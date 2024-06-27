@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 18:31:55 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:48:50 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,5 +268,9 @@ void		catch_int(void);
 void		catch_int_hd(void);
 void		echo_ctrl(void);
 void		display_ctrl(void);
+
+
+
+void	free_2d_array(char **arr);
 
 #endif

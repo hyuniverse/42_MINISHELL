@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:55:33 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/26 18:33:08 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:11:06 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 	t_quote_flag	flag;
 	t_phrase		*phrase;
 	t_expansion		e;
+	char			*str;
 
 	init_quote_flag(&flag);
 	init_expansion_var(&e, token);
@@ -34,7 +35,9 @@ char	*change_dollar_sign(t_envp **my_envp, t_token *token)
 	}
 	if (e.cnt != 0)
 		add_token(phrase, ft_substr(e.str, e.i - e.cnt, e.cnt), &e.cnt);
-	return (phrase_to_str(phrase));
+	str = phrase_to_str(phrase);
+	free_phrase(phrase);
+	return (str);
 }
 
 void	change_dollar_all_tokens(t_input *input, t_envp **my_envp)

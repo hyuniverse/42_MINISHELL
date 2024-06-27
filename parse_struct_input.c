@@ -6,7 +6,7 @@
 /*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:28 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/26 14:37:05 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:12:47 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_phrase(t_phrase *phrase)
 
 void	free_input(t_input *list)
 {
+	if (!list)
+		return ;
 	if (list->head)
 		free_phrase(list->head);
 	free(list);

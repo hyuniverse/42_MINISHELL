@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 13:52:48 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:43 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:51:31 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ms_exit(char **argv)
 	}
 	else
 		exit((char)num);
+	free_2d_array(argv);
 	return ((int)exit_code);
 }
 

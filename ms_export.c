@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:34:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/09 11:34:17 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:51:42 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ms_export(t_envp **my_envp, char **argv)
 	}
 	if (exit_code > 0)
 		exit_code = 1;
+	free_2d_array(argv);
 	return (exit_code);
 }
 

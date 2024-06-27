@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+         #
+#    By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:23:47 by siychoi           #+#    #+#              #
-#    Updated: 2024/06/26 17:31:15 by siychoi          ###   ########.fr        #
+#    Updated: 2024/06/27 14:13:58 by sehyupar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror 
+#-fsanitize=address -g
 RM			= rm
 RMFLAG		= -f
 AR			= ar

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:17:59 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/13 15:31:17 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:48:27 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ms_echo(char **argv)
 		echo_no_options(argv);
 	else
 		echo_yes_options(argv, i);
+	free_2d_array(argv);
 	return (0);
 }
 

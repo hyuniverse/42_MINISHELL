@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:06:27 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/09 11:29:17 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:50:11 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	ms_env(t_envp **my_envp, char **argv)
 	else
 	{
 		ft_putstr_fd("minishell: env can't have arguments or options\n", 2);
+		free_2d_array(argv);
 		return (1);
 	}
+	free_2d_array(argv);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:11:17 by siychoi           #+#    #+#             */
-/*   Updated: 2024/05/25 16:05:44 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:52:00 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ms_unset(t_envp **my_envp, char **argv)
 			i++;
 		}
 	}
+	free_2d_array(argv);
 	return (exit_code);
 }
 

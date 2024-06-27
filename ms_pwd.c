@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:44:10 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/14 17:20:52 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:51:53 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int	ms_pwd(char **argv)
 		if (argv[1][0] == '-' && argv[1][1] != '\0')
 		{
 			ft_putstr_fd("minishell: pwd can't have options\n", 2);
+			free_2d_array(argv);
 			return (1);
 		}
 		ft_putendl_fd(wd, 1);
 	}
 	else
 		ft_putendl_fd(wd, 1);
+	free_2d_array(argv);
 	return (0);
 }
