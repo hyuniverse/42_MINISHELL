@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ms_process3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 17:24:50 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 22:16:02 by siychoi          ###   ########.fr       */
+/*   Created: 2024/06/28 21:30:03 by siychoi           #+#    #+#             */
+/*   Updated: 2024/06/28 21:33:02 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check()
+void	check_error_in_process(char **cmd, char **envp)
 {
-	system("leaks --list -- minishell");
-}
-
-int	main(int argc, char *argv[], char *envp[])
-{
-	t_envp	*my_envp;
-
-	atexit(check);
-	if (argc != 1 || argv[0] == NULL)
-		exit(1);
-	my_envp = NULL;
-	envp_arr_to_list(envp, &my_envp);
-	set_interactive_signal();
-	exec_minishell(&my_envp);
-	//atexit(check);
-	return (0);
+	if (access(cmd[0], F_OK) != 0)
+		print_nofile_error(127, cmd[0]);
+	else if (access(cmd[0], F_OK) == 0 && execve(cmd[0], cmd, envp) == -1)
+		print_code_error(126, cmd[0]);
 }

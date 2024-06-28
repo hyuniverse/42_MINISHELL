@@ -6,11 +6,13 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:21:11 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 16:43:50 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:26:55 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	free_envp(t_envp *my_envp);
 
 int	envp_size(t_envp **my_envp)
 {
@@ -90,12 +92,17 @@ char	**envp_list_to_arr(t_envp *my_envp)
 			result[i] = ft_strdup(next->key);
 		temp = next;
 		next = next->next;
-		if (temp->value != NULL)
-			free(temp->value);
-		free(temp->key);
-		free(temp);
+		free_envp(temp);
 		i++;
 	}
 	result[i] = NULL;
 	return (result);
+}
+
+static void	free_envp(t_envp *my_envp)
+{
+	if (my_envp->value != NULL)
+		free(my_envp->value);
+	free(my_envp->key);
+	free(my_envp);
 }

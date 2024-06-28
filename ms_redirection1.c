@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 22:06:25 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:36:53 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,7 @@ void	make_hd_content(t_token *token, int fd)
 		{
 			printf("> \033[s\b\b");
 			buffer = readline("> ");
-			if (buffer == NULL)
-			{
-				printf("\033[1u\033[1B\033[1A");
-				free(token->data);
-				exit(1);
-			}
+			check_heredoc_exit(token, buffer);
 			if (ms_strncmp(buffer, token->data, ft_strlen(buffer)) == 0)
 			{
 				free(buffer);

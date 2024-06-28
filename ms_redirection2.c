@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:31:03 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 12:35:06 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:48:51 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,46 @@ void	redirection_to_filename(t_input *input, int *flag)
 		token = phrase->head;
 		while (token != NULL && token->type != CNT)
 		{
-			if (token->type == IN || token->type == HD)
-			{
-				if (infile_to_filename(phrase, token, flag) == FALSE)
-				{
-					if (phrase->infile_name != NULL)
-						free(phrase->infile_name);
-					break ;
-				}
-			}
-			else if (token->type == OUT || token->type == APD)
-			{
-				if (outfile_to_filename(phrase, token) == FALSE)
-				{
-					if (phrase->outfile_name != NULL)
-						free(phrase->outfile_name);
-					break ;
-				}
-			}
+			if (check_rd_error(phrase, token, flag) == FALSE)
+				break ;
 			token = token->next;
 		}
 		skip_redirection(phrase);
 		phrase = phrase->next;
+	}
+}
+
+int	check_rd_error(t_phrase *phrase, t_token *token, int *flag)
+{
+	if (token->type == IN || token->type == HD)
+	{
+		if (infile_to_filename(phrase, token, flag) == FALSE)
+		{
+			if (phrase->infile_name != NULL)
+				free(phrase->infile_name);
+			//if (phrase->outfile_name)
+			//	free(phrase->outfile_name);
+			return (FALSE);
+		}
+	}
+	else if (token->type == OUT || token->type == APD)
+	{
+		if (outfile_to_filename(phrase, token) == FALSE)
+		{
+			if (phrase->outfile_name != NULL)
+				free(phrase->outfile_name);
+			return (FALSE);
+		}
+	}
+	return (TRUE);
+}
+
+void	check_heredoc_exit(t_token *token, char *buffer)
+{
+	if (buffer == NULL)
+	{
+		printf("\033[1u\033[1B\033[1A");
+		free(token->data);
+		exit(1);
 	}
 }

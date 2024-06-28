@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 16:39:08 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:31:18 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,7 @@ int	child_process_exe(t_phrase *phrase, char **envp)
 			free_2d_array(cmd);
 			return (print_dir_error(phrase->head->data));
 		}
-		if (access(cmd[0], F_OK) != 0)
-			print_nofile_error(127, cmd[0]);
-		else if (access(cmd[0], F_OK) == 0 && execve(cmd[0], cmd, envp) == -1)
-			print_code_error(126, cmd[0]);
+		check_error_in_process(cmd, envp);
 	}
 	else
 		child_process_exe2(split_str, cmd, envp);

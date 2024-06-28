@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:17:42 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 12:34:53 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:27:58 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	exec_minishell(t_envp **my_envp)
 
 	flag = FALSE;
 	tcgetattr(STDIN_FILENO, &old_term);
-	set_interactive_signal();
 	while (1)
 	{
 		printf("minishell $ \033[s\b\b\b\b\b\b\b\b\b\b\b\b");

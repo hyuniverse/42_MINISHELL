@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 16:39:17 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:42:46 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,9 @@ void		close_all_pipe(t_fd p);
 void		dup_io_fd(int *io_fd, t_fd p);
 void		dup_and_close_last_process(int *io_fd, t_fd p);
 
+/*-----ms_process3.c-----*/
+void		check_error_in_process(char **cmd, char **envp);
+
 /*-----ms_pwd.c-----*/
 int			ms_pwd(char **argv);
 
@@ -207,6 +210,8 @@ int			open_in_and_out_fd(t_phrase *phrase, int *io_fd);
 int			infile_to_filename(t_phrase *phrase, t_token *token, int *flag);
 int			outfile_to_filename(t_phrase *phrase, t_token *token);
 void		redirection_to_filename(t_input *input, int *flag);
+int			check_rd_error(t_phrase *phrase, t_token *token, int *flag);
+void		check_heredoc_exit(t_token *token, char *buffer);
 
 /*-----ms_unset.c-----*/
 int			ms_unset(t_envp **my_envp, char **argv);
