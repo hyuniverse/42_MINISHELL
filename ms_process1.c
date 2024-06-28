@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:39:14 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 21:40:46 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:39:08 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,7 @@ int	child_process_exe(t_phrase *phrase, char **envp)
 
 	cmd = token_to_arr(phrase);
 	if (!cmd)
-	{
-		printf("geu cheo\n");
 		return (0);
-	}
-	printf("cmd = %s\n", cmd[0]);
 	path = find_path(envp);
 	split_str = ft_split(path, ':');
 	if (ft_strncmp(phrase->head->data, "./", 2) == 0 || \

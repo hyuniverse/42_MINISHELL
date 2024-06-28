@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:31:03 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 22:18:18 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/28 12:35:06 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,7 @@ void	redirection_to_filename(t_input *input, int *flag)
 			}
 			token = token->next;
 		}
-		printf("1 data = %s\n", phrase->head->data);
 		skip_redirection(phrase);
-		//printf("2 data = %s\n", phrase->head->data);
 		phrase = phrase->next;
 	}
 }
