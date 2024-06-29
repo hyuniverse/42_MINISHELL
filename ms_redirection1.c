@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:41:29 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 21:36:53 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:19:14 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*make_hd_file(t_token *token, int *flag)
 			break ;
 	}
 	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	make_hd_content(token, fd);
+	make_hd_content(token, fd, path);
 	wait(&status);
 	if (WEXITSTATUS(status) == 2)
 		*flag = TRUE;
@@ -57,7 +57,7 @@ char	*make_hd_file(t_token *token, int *flag)
 	return (path);
 }
 
-void	make_hd_content(t_token *token, int fd)
+void	make_hd_content(t_token *token, int fd, char *path)
 {
 	pid_t	pid;
 	char	*buffer;
@@ -69,7 +69,7 @@ void	make_hd_content(t_token *token, int fd)
 		{
 			printf("> \033[s\b\b");
 			buffer = readline("> ");
-			check_heredoc_exit(token, buffer);
+			check_heredoc_exit(token, buffer, path);
 			if (ms_strncmp(buffer, token->data, ft_strlen(buffer)) == 0)
 			{
 				free(buffer);

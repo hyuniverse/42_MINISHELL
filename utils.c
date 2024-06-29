@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:07:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 20:11:50 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:22:47 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,25 @@ char	**token_to_arr(t_phrase *phrase)
 	}
 	result[i] = NULL;
 	return (result);
+}
+
+void	free_buffer_and_redirections(t_input *list, char *buffer)
+{
+	t_phrase	*phrase;
+
+	free(buffer);
+	if (!list)
+		return ;
+	phrase = list->head;
+	while (phrase)
+	{
+		if (phrase->head == NULL)
+		{
+			if (phrase->infile_name && phrase->infile_type != 6)
+				free(phrase->infile_name);
+			if (phrase->outfile_name && phrase->outfile_type != 6)
+				free(phrase->outfile_name);
+		}
+		phrase = phrase->next;
+	}
 }

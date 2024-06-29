@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 21:42:46 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:20:02 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int			ms_pwd(char **argv);
 /*-----ms_redirection1.c-----*/
 void		skip_redirection(t_phrase *phrase);
 char		*make_hd_file(t_token *token, int *flag);
-void		make_hd_content(t_token *token, int fd);
+void		make_hd_content(t_token *token, int fd, char *path);
 void		open_outfile(t_phrase *phrase, int *io_fd);
 int			open_in_and_out_fd(t_phrase *phrase, int *io_fd);
 
@@ -211,7 +211,7 @@ int			infile_to_filename(t_phrase *phrase, t_token *token, int *flag);
 int			outfile_to_filename(t_phrase *phrase, t_token *token);
 void		redirection_to_filename(t_input *input, int *flag);
 int			check_rd_error(t_phrase *phrase, t_token *token, int *flag);
-void		check_heredoc_exit(t_token *token, char *buffer);
+void		check_heredoc_exit(t_token *token, char *buffer, char *path);
 
 /*-----ms_unset.c-----*/
 int			ms_unset(t_envp **my_envp, char **argv);
@@ -220,6 +220,7 @@ int			ms_unset(t_envp **my_envp, char **argv);
 int			ms_strncmp(const char *s1, const char *s2, size_t n);
 int			count_token_data(t_token *token, int *cnt);
 char		**token_to_arr(t_phrase *phrase);
+void		free_buffer_and_redirections(t_input *list, char *buffer);
 
 /*-----parse_lexer.c-----*/
 void		change_stat(int *flag);

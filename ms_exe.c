@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:17:42 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 21:27:58 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:17:51 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	make_list(t_input *list, t_envp**my_envp, char *buffer, int flag)
 	else
 		process_code = set_process(my_envp, list);
 	change_value(my_envp, "?", ft_itoa(process_code));
-	free(buffer);
+	free_buffer_and_redirections(list, buffer);
 	free_input(list);
 	return (0);
 }

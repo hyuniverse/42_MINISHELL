@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:57:28 by sehyupar          #+#    #+#             */
-/*   Updated: 2024/06/28 22:16:14 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:08:31 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_phrase(t_phrase *phrase)
 	{
 		if (phrase->infile_name != NULL && phrase->infile_type != 6)
 			free(phrase->infile_name);
-		if (phrase->outfile_name != NULL)
+		if (phrase->outfile_name != NULL && phrase->outfile_type != 6)
 			free(phrase->outfile_name);
 		free_token(phrase->head);
 	}

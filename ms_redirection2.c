@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:31:03 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 21:48:51 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:21:55 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ int	check_rd_error(t_phrase *phrase, t_token *token, int *flag)
 		{
 			if (phrase->infile_name != NULL)
 				free(phrase->infile_name);
-			//if (phrase->outfile_name)
-			//	free(phrase->outfile_name);
 			return (FALSE);
 		}
 	}
@@ -103,12 +101,13 @@ int	check_rd_error(t_phrase *phrase, t_token *token, int *flag)
 	return (TRUE);
 }
 
-void	check_heredoc_exit(t_token *token, char *buffer)
+void	check_heredoc_exit(t_token *token, char *buffer, char *path)
 {
 	if (buffer == NULL)
 	{
 		printf("\033[1u\033[1B\033[1A");
 		free(token->data);
+		unlink(path);
 		exit(1);
 	}
 }

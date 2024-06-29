@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:06:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 22:15:02 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:15:55 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,6 @@ int	check_process_error_return(t_phrase *phrase)
 	{
 		if (phrase->infile_type == 3)
 			unlink(phrase->infile_name);
-		if (phrase->infile_name != NULL)
-			free(phrase->infile_name);
-		if (phrase->outfile_name != NULL)
-			free(phrase->outfile_name);
 		return (0);
 	}
 	return (-1);
