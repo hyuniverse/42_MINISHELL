@@ -15,12 +15,10 @@
 char	*cmd_strjoin(char const *s1, char const *s2, char *s3)
 {
 	char	*temp;
-	int		i;
 	int		s1_len;
 	int		s2_len;
 	int		s3_len;
 
-	i = 0;
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	s3_len = ft_strlen(s3);
