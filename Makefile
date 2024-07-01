@@ -6,14 +6,13 @@
 #    By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:23:47 by siychoi           #+#    #+#              #
-#    Updated: 2024/06/28 21:32:00 by siychoi          ###   ########.fr        #
+#    Updated: 2024/07/01 15:36:06 by siychoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-# -fsanitize=address -g
 RM			= rm
 RMFLAG		= -f
 AR			= ar
@@ -31,11 +30,11 @@ OBJS		= $(SRCS:.c=.o)
 all : $(NAME)
 
 clean :
-		$(RM) $(RMFLAG) $(OBJS) $(OBJS_BONUS) BONUS_NAME
+		$(RM) $(RMFLAG) $(OBJS) $(OBJS_BONUS)
 		make -C Libft clean
 
 fclean :
-		$(RM) $(RMFLAG) $(OBJS) $(OBJS_BONUS) $(NAME) BONUS_NAME
+		$(RM) $(RMFLAG) $(OBJS) $(OBJS_BONUS) $(NAME)
 		make -C Libft fclean
 
 re : fclean
@@ -48,4 +47,4 @@ $(NAME) : $(OBJS)
 		make -C Libft
 		$(CC) $(CFLAGS) -o $@ $^ -LLibft -lft -lreadline
 
-.PHONY : all clean fclean re bonus
+.PHONY : all clean fclean re
