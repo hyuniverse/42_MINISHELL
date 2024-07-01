@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:28 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 21:24:07 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:26:29 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ void	ms_cd2(t_envp **my_envp, char *argv[], char *pwd, int *status)
 
 static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd)
 {
-	if (chdir(find_value(my_envp, "HOME")) == -1)
+	char	*home_path;
+
+	home_path = find_value(my_envp, "HOME");
+	if (chdir(home_path) == -1)
 	{
 		ft_putstr_fd("minishell : cd: HOME not set\n", 2);
 		free(old_pwd);
+		free(home_path);
 		return (1);
 	}
 	else
@@ -67,6 +71,7 @@ static int	ms_cd_no_options(t_envp **my_envp, char *old_pwd)
 		change_value(my_envp, "OLDPWD", old_pwd);
 		change_value(my_envp, "PWD", getcwd(NULL, 0));
 	}
+	free(home_path);
 	return (0);
 }
 
