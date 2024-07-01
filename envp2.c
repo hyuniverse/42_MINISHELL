@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 20:11:22 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/28 17:08:09 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:10:33 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ char	*find_value(t_envp **my_envp, char *str)
 	{
 		if (ms_strncmp(n->key, str, ft_strlen(n->key)) == 0)
 		{
-			value = ft_strdup(n->value);
+			if (n->value)
+				value = ft_strdup(n->value);
 			break ;
 		}
 		i++;
