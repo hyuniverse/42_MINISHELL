@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:34:36 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/27 14:51:42 by sehyupar         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:44:00 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ static int	add_envp(t_envp **my_envp, char *s)
 	i = 0;
 	j = 0;
 	if (ft_isalpha(s[i]) == 0)
-		return (print_builtin_error("envp", s));
+		return (print_builtin_error("export", s));
 	while (s[++i])
 	{
 		if (j == 0 && ft_isalnum(s[i]) == 0 && s[i] != '=')
-			return (print_builtin_error("envp", s));
+			return (print_builtin_error("export", s));
 		else if (s[i] == '=' && j == 0)
 			j = i;
 	}
