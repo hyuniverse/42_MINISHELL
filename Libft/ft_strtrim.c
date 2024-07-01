@@ -74,11 +74,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*temp;
 	int		front;
-	int		i;
 	int		s1_len;
 	int		temp_size;
 
-	i = 0;
 	if (s1 == NULL || set == NULL)
 		return (ft_calloc(1, 1));
 	s1_len = ft_strlen(s1);
