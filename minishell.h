@@ -6,7 +6,7 @@
 /*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:35:05 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/29 14:20:02 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/07/01 16:01:05 by siychoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,6 @@ int			str_str_len(char **str);
 /*-----ms_env.c-----*/
 int			ms_env(t_envp **my_envp, char **argv);
 
-/*-----ms_exe.c-----*/
-
 /*-----ms_exit.c-----*/
 int			ms_exit(char **argv);
 int			ft_atol(const char *str, long long *num);
@@ -221,6 +219,7 @@ int			ms_strncmp(const char *s1, const char *s2, size_t n);
 int			count_token_data(t_token *token, int *cnt);
 char		**token_to_arr(t_phrase *phrase);
 void		free_buffer_and_redirections(t_input *list, char *buffer);
+void		free_2d_array(char **arr);
 
 /*-----parse_lexer.c-----*/
 void		change_stat(int *flag);
@@ -276,7 +275,5 @@ void		catch_int(void);
 void		catch_int_hd(void);
 void		echo_ctrl(void);
 void		display_ctrl(void);
-
-void		free_2d_array(char **arr);
 
 #endif
