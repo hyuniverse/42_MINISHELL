@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirection2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siychoi <siychoi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehyupar <sehyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:31:03 by siychoi           #+#    #+#             */
-/*   Updated: 2024/06/29 14:21:55 by siychoi          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:25:10 by sehyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ int	check_rd_error(t_phrase *phrase, t_token *token, int *flag)
 		if (infile_to_filename(phrase, token, flag) == FALSE)
 		{
 			if (phrase->infile_name != NULL)
+			{
 				free(phrase->infile_name);
+				phrase->infile_name = NULL;
+			}
 			return (FALSE);
 		}
 	}
@@ -94,7 +97,10 @@ int	check_rd_error(t_phrase *phrase, t_token *token, int *flag)
 		if (outfile_to_filename(phrase, token) == FALSE)
 		{
 			if (phrase->outfile_name != NULL)
+			{
 				free(phrase->outfile_name);
+				phrase->outfile_name = NULL;
+			}
 			return (FALSE);
 		}
 	}
